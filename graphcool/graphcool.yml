@@ -37,12 +37,6 @@ functions:
     handler:
       code: src/email-password/loggedInUser.ts
 
-  hello:
-    handler:
-      code: src/ads-form.js
-    type: resolver
-    schema: src/ads-form.graphql
-
 
 # Model/Relation permissions are used to limit the API access
 # To take the burden of thinking about those while development, we
