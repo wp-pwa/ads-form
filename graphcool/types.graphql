@@ -1,8 +1,12 @@
 type User @model {
+  # Required system field:
   id: ID! @isUnique
+
+  # Optional system fields (remove if not needed):
   createdAt: DateTime!
-  email: String @isUnique
-  name: String!
-  password: String
   updatedAt: DateTime!
+
+  name: String!
+  email: String! @isUnique
+  password: String!
 }
