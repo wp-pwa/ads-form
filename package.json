@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "cz": "git-cz"
   },
   "dependencies": {
     "apollo-boost": "^0.1.6",
@@ -19,5 +20,9 @@
     "react": "16.4.1",
     "react-apollo": "^2.1.4",
     "react-dom": "16.4.1"
+  },
+  "devDependencies": {
+    "commitizen": "^2.10.1",
+    "cz-conventional-changelog": "^2.1.0"
   }
 }
