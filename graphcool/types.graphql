@@ -9,7 +9,7 @@ type User @model {
   name: String!
   email: String! @isUnique
   password: String!
-  role: Role! @defaultValue(value: USER) @migrationValue(value: USER)
+  role: Role! @defaultValue(value: USER)
   sites: [Site!]! @relation(name: "Owner")
 }
 
@@ -20,8 +20,23 @@ enum Role {
 
 type Site @model {
   id: ID! @isUnique
-
   siteId: String!
   url: String!
   owner: User! @relation(name: "Owner")
+  settings: [Setting!]! @relation(name: "SiteOnSetting")
+}
+
+type Package @model {
+  id: ID! @isUnique
+  name: String!
+  namespace: String!
+  setting: Setting @relation(name: "SettingOnPackage")
+}
+
+type Setting @model {
+  id: ID! @isUnique
+  active: Boolean! @defaultValue(value: true)
+  package: Package @relation(name: "SettingOnPackage")
+  site: Site @relation(name: "SiteOnSetting")
+  value: Json!
 }
