@@ -46,9 +46,9 @@ export default class Index extends React.Component {
           <div>
             Hello {user.name}!<br />
             <h3>Sites:</h3>
-            <ul>{sites.map(({ url, siteId }) => (
+            <ul>{sites.map(({ url, siteId, id }) => (
               <li>
-                <Link href={{ pathname: '/site', query: { id: siteId } }}>
+                <Link href={{ pathname: '/site', query: { id } }}>
                   <a>{`${url} - ${siteId}`}</a>
                 </Link>
               </li>
