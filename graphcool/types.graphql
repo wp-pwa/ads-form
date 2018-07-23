@@ -9,4 +9,10 @@ type User @model {
   name: String!
   email: String! @isUnique
   password: String!
+  role: Role! @defaultValue(value: USER) @migrationValue(value: USER)
+}
+
+enum Role {
+  ADMIN
+  USER
 }
