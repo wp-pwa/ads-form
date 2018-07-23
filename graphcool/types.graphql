@@ -10,9 +10,18 @@ type User @model {
   email: String! @isUnique
   password: String!
   role: Role! @defaultValue(value: USER) @migrationValue(value: USER)
+  sites: [Site!]! @relation(name: "Owner")
 }
 
 enum Role {
   ADMIN
   USER
+}
+
+type Site @model {
+  id: ID! @isUnique
+
+  siteId: String!
+  url: String!
+  owner: User! @relation(name: "Owner")
 }
