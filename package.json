@@ -44,6 +44,7 @@
     "eslint-plugin-react": "^7.9.1",
     "husky": "^1.0.0-rc.9",
     "jest": "^23.1.0",
+    "prettier": "^1.13.5",
     "semantic-release": "^15.6.0",
     "travis-deploy-once": "^5.0.0"
   }
