@@ -10,6 +10,7 @@
     "build": "next build",
     "start": "next start",
     "cz": "git-cz",
+    "lint-staged": "lint-staged",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release"
   },
