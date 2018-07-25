@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-for, no-console */
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { Form } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import arrayMutators from 'final-form-arrays';
@@ -13,7 +14,8 @@ const SortableList = sortableContainer(({ fields }) => (
       console.log(member);
       return (
         <AdCard
-          key={member.id}
+          key={member}
+          member={member}
           remove={() => fields.remove(index)}
           index={index}
         />
@@ -41,18 +43,8 @@ class SortableComponent extends Component {
           onSortEnd={this.onSortEnd}
           useDragHandle
         />
-        <button
-          type="button"
-          onClick={() =>
-            fields.push({
-              id: Math.random(),
-              type: 'adsense',
-            })
-          }
-          outlined
-          style={{ margin: '0 0.3em 1em 0' }}
-        >
-          Add menu element
+        <button type="button" onClick={() => fields.push({ type: 'smartads' })}>
+          Create Ad
         </button>
       </Fragment>
     );
@@ -65,20 +57,18 @@ SortableComponent.propTypes = {
   }).isRequired,
 };
 
-const onSubmit = () => console.log('submit');
+const onSubmit = values => console.log('submit', values);
 const validate = () => console.log('validate');
 
 const AdForm = ({ url }) => (
-  <Form
+  <StyledForm
     onSubmit={onSubmit}
     validate={validate}
     mutators={arrayMutators}
     render={({ handleSubmit, pristine, invalid }) => (
       <form onSubmit={handleSubmit}>
         <h2>Ad configuration of {url}</h2>
-
         <FieldArray name="ads" component={SortableComponent} />
-
         <button type="submit" disabled={pristine || invalid}>
           Submit
         </button>
@@ -92,3 +82,12 @@ AdForm.propTypes = {
 };
 
 export default AdForm;
+
+const StyledForm = styled(Form)`
+  max-width: 500px;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+`;
