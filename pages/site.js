@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import getSite from '../lib/getSite';
 import AdForm from '../components/AdForm';
-import Styles from '../components/Styles';
 
 const Site = ({ site }) =>
   site ? (
-    <Styles>
-      <h2>{site.url}</h2>
-      <p>{site.siteId}</p>
-      <h3>Settings</h3>
-      <ul>{site.settings.map(s => <li>{s.package.name}</li>)}</ul>
+    <Container>
+      <Header>
+        <Url>{site.url}</Url>
+        <SiteId>{site.siteId}</SiteId>
+      </Header>
       <AdForm url={site.url} />
-    </Styles>
+    </Container>
   ) : (
     <div>The site doesn&apos;t exist</div>
   );
@@ -38,3 +38,29 @@ Site.getInitialProps = async ({ query: { id }, apolloClient }) => {
 };
 
 export default Site;
+
+const Container = styled.div`
+  max-width: 512px;
+`;
+
+const Header = styled.div`
+  width: 100%;
+  margin-top: 15px;
+  display: flex;
+`;
+
+const Url = styled.span`
+  color: rgb(51, 51, 51);
+  font-family: sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 0px 15px;
+  margin: 0px;
+`;
+
+const SiteId = styled.span`
+  color: rgb(102, 102, 102);
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+`;
