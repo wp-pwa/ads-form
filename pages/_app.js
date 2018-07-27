@@ -1,4 +1,5 @@
 import App, { Container } from 'next/app';
+import Head from 'next/head';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import withApollo from '../lib/withApollo';
@@ -11,6 +12,12 @@ class MyApp extends App {
         <ApolloProvider client={apolloClient}>
           <Component {...pageProps} />
         </ApolloProvider>
+        <Head>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+        </Head>
         <style jsx global>{`
           body {
             font-family: sans-serif;
