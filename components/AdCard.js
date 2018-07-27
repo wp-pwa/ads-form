@@ -8,6 +8,7 @@ import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 import AdOptions from './AdOptions';
 import TextInput from './TextInput';
 import { Row, Label, Input, Select } from './styled';
+import { required } from '../validators';
 
 class AdCard extends Component {
   static propTypes = {
@@ -28,11 +29,11 @@ class AdCard extends Component {
         <Title>
           <DragHandle>{`${'↕️'}`}</DragHandle>
           <TextInput
-            member={member}
-            name="name"
+            name={`${member}.name`}
             component={Input}
             type="text"
             placeholder="Name"
+            validate={required}
           />
           <ToggleContent onClick={this.toggleContent}>
             {isOpen ? '⏫' : '⏬'}
