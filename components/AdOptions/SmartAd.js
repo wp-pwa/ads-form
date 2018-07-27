@@ -12,19 +12,19 @@ const SmartAd = ({ member }) => (
     <TextInput
       name={`${member}.siteId`}
       label="siteId"
-      placeholder="e.g. 103409"
+      placeholder="103409"
       validate={required}
     />
     <TextInput
       name={`${member}.pageId`}
       label="pageId"
-      placeholder="e.g. 659846"
+      placeholder="659846"
       validate={required}
     />
     <TextInput
       name={`${member}.formatId`}
       label="formatId"
-      placeholder="e.g. 14968"
+      placeholder="14968"
       validate={required}
     />
     <TextInput

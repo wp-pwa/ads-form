@@ -2,29 +2,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '../TextInput';
+import { required, mustBeNumber, composeValidators } from '../../validators';
 
-const options = [
-  { name: 'siteId', label: 'siteId', placeholder: 'e.g. 103409' },
-  { name: 'pageId', label: 'pageId', placeholder: 'e.g. 659846' },
-  { name: 'formatId', label: 'formatId', placeholder: 'e.g. 14968' },
-  { name: 'callType', label: 'callType', placeholder: 'iframe' },
-  { name: 'width', label: 'width', placeholder: '300' },
-  { name: 'height', label: 'height', placeholder: '250' },
-];
+const requireNumber = composeValidators(required, mustBeNumber);
 
-const SmartAd = ({ member }) =>
-  options.map(({ name, label, placeholder }) => (
+const AdSense = ({ member }) => (
+  <>
     <TextInput
-      member={member}
-      key={name}
-      name={name}
-      label={label}
-      placeholder={placeholder}
+      name={`${member}.client`}
+      label="client"
+      placeholder="ca-pub-1234123412341234"
+      validate={required}
     />
-  ));
+    <TextInput
+      name={`${member}.slot`}
+      label="slot"
+      placeholder="1234567890"
+      validate={required}
+    />
+    <TextInput
+      name={`${member}.width`}
+      label="width"
+      placeholder="300"
+      validate={requireNumber}
+    />
+    <TextInput
+      name={`${member}.height`}
+      label="height"
+      placeholder="250"
+      validate={requireNumber}
+    />
+    <TextInput
+      name={`${member}.format`}
+      label="format"
+      placeholder="rectangle"
+    />
+  </>
+);
 
-SmartAd.propTypes = {
+AdSense.propTypes = {
   member: PropTypes.string.isRequired,
 };
 
-export default SmartAd;
+export default AdSense;

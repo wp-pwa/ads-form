@@ -7,6 +7,7 @@ import { FieldArray } from 'react-final-form-arrays';
 import arrayMutators from 'final-form-arrays';
 import { SortableContainer } from 'react-sortable-hoc';
 import { ButtonDefault, ButtonPrimary } from './Buttons';
+import { SMART_ADSERVER } from '../constants';
 
 import AdCard from './AdCard';
 
@@ -58,7 +59,7 @@ const AdForm = () => (
                 <Buttons>
                   <ButtonDefault
                     type="button"
-                    onClick={() => fields.push({ type: 'smartads' })}
+                    onClick={() => fields.push({ type: SMART_ADSERVER })}
                   >
                     Create Ad
                   </ButtonDefault>

@@ -9,13 +9,14 @@ import AdOptions from './AdOptions';
 import TextInput from './TextInput';
 import { Row, Label, Input, Select } from './styled';
 import { required } from '../validators';
+import { SMART_ADSERVER } from '../constants';
 
 class AdCard extends Component {
   static propTypes = {
     member: PropTypes.string.isRequired,
   };
 
-  state = { isOpen: false, type: 'smartad' };
+  state = { isOpen: false, type: SMART_ADSERVER };
 
   toggleContent = () => {
     this.setState({ isOpen: !this.state.isOpen });
