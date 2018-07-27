@@ -23,9 +23,15 @@ const TextInput = ({ name, label, placeholder, validate }) => (
 
 TextInput.propTypes = {
   name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  validate: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  validate: PropTypes.func,
+};
+
+TextInput.defaultProps = {
+  label: null,
+  placeholder: '',
+  validate: () => {},
 };
 
 export default TextInput;
