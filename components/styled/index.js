@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+const getColorFromMeta = ({ meta: { touched, active, valid } }) => {
+  if (!valid && touched) return '#ff3860';
+  if (valid && !active) return '#62dc7b';
+  return '#ccc';
+};
+
 export const Row = styled.div`
   position: relative;
   display: flex;
@@ -23,7 +29,7 @@ export const Input = styled.input`
   padding: 3px 5px;
   font-size: 1em;
   margin-left: 15px;
-  border: 1px solid ${({ invalid }) => (invalid ? '#ff3860' : '#ccc')};
+  border: 1px solid ${getColorFromMeta};
   border-radius: 3px;
 `;
 
@@ -32,7 +38,7 @@ export const Select = styled.select`
   padding: 3px 5px;
   font-size: 1em;
   margin-left: 15px;
-  border: 1px solid ${({ invalid }) => (invalid ? '#ff3860' : '#ccc')};
+  border: 1px solid '#ccc';
   border-radius: 3px;
 `;
 

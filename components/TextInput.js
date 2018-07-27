@@ -6,16 +6,11 @@ import { Row, Label, Input, ErrorMsg } from './styled';
 
 const TextInput = ({ name, label, placeholder, validate }) => (
   <Field name={name} validate={validate}>
-    {({ input, meta: { error, touched, active } }) => (
+    {({ input, meta }) => (
       <Row>
         {label && <Label>{label}</Label>}
-        <Input
-          {...input}
-          invalid={touched && error && !active}
-          type="text"
-          placeholder={placeholder}
-        />
-        {error && touched && <ErrorMsg>{error}</ErrorMsg>}
+        <Input {...input} meta={meta} type="text" placeholder={placeholder} />
+        {meta.error && meta.touched && <ErrorMsg>{meta.error}</ErrorMsg>}
       </Row>
     )}
   </Field>
