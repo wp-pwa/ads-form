@@ -43,18 +43,16 @@ class SortableComponent extends Component {
 }
 
 const onSubmit = values => console.log('submit', values);
-const validate = () => console.log('validate');
 
 const AdForm = () => (
   <Form
     onSubmit={onSubmit}
-    validate={validate}
     mutators={arrayMutators}
     render={({ handleSubmit, pristine, invalid }) => (
       <div>
         <Title>Ad Configuration</Title>
         <StyledForm onSubmit={handleSubmit}>
-          <FieldArray name="ads">
+          <FieldArray name="ads.fills">
             {({ fields }) => (
               <div>
                 <Buttons>
@@ -85,7 +83,6 @@ AdForm.propTypes = {
 export default AdForm;
 
 const Title = styled.div`
-  font-family: sans-serif;
   box-sizing: border-box;
   width: 100%;
   display: flex;

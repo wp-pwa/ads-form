@@ -6,12 +6,8 @@ import { Field } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 import AdOptions from './AdOptions';
-
-const DragHandle = SortableHandle(() => (
-  <span role="img" aria-label="up-down">
-    ↕️
-  </span>
-));
+import TextInput from './TextInput';
+import { Row, Label, Input, Select } from './styled';
 
 class AdCard extends Component {
   static propTypes = {
@@ -30,35 +26,36 @@ class AdCard extends Component {
     return (
       <Card>
         <Title>
-          <div>
-            <DragHandle />
-            <Field
-              name={`${member}.name`}
-              component="input"
-              type="text"
-              placeholder="Name"
-            />
-          </div>
+          <DragHandle>{`${'↕️'}`}</DragHandle>
+          <TextInput
+            member={member}
+            name="name"
+            component={Input}
+            type="text"
+            placeholder="Name"
+          />
           <ToggleContent onClick={this.toggleContent}>
             {isOpen ? '⏫' : '⏬'}
           </ToggleContent>
         </Title>
-        {isOpen && (
-          <Content>
-            <div>
-              <label>Type</label>
-              <Field name={`${member}.type`} component="select">
-                <option value="smartad">Smart Adserver</option>
-                <option value="adsense">AdSense</option>
-                <option value="doubleclick">DoubleClick</option>
-              </Field>
-              <OnChange name={`${member}.type`}>
-                {value => this.setState({ type: value })}
-              </OnChange>
-            </div>
-            <AdOptions member={member} type={type} />
-          </Content>
-        )}
+        <Content isOpen={isOpen}>
+          <Row>
+            <Label>Type</Label>
+            <Field name={`${member}.type`}>
+              {({ input }) => (
+                <Select {...input}>
+                  <option value="smartads">Smart Adserver</option>
+                  <option value="adsense">AdSense</option>
+                  <option value="doubleclick">DoubleClick</option>
+                </Select>
+              )}
+            </Field>
+          </Row>
+          <OnChange name={`${member}.type`}>
+            {value => this.setState({ type: value })}
+          </OnChange>
+          <AdOptions member={member} type={type} />
+        </Content>
       </Card>
     );
   }
@@ -72,54 +69,36 @@ const Card = styled.div`
   background-color: #fff;
   border-bottom: 1px solid #efefef;
   box-sizing: border-box;
-
-  & > div {
-    & > div {
-      display: flex;
-      line-height: 2em;
-      margin: 5px;
-      & > label {
-        color: #333;
-        width: 110px;
-        font-size: 1em;
-        line-height: 32px;
-      }
-      & > input,
-      & > select,
-      & > textarea {
-        flex: 1;
-        padding: 3px 5px;
-        font-size: 1em;
-        margin-left: 15px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-      }
-      & > input[type='checkbox'] {
-        margin-top: 7px;
-      }
-      & > div {
-        margin-left: 16px;
-        & > label {
-          display: block;
-          & > input {
-            margin-right: 3px;
-          }
-        }
-      }
-    }
-  }
 `;
 
-const Title = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Content = styled.div``;
-
-const ToggleContent = styled.div`
+const DragHandle = SortableHandle(styled.span`
+  margin: 5px;
   height: 32px;
   width: 32px;
   line-height: 32px;
   text-align: center;
+  align-self: center;
+  &:hover {
+    cursor: move;
+  }
+`);
+
+const Title = styled.div`
+  display: flex;
+  line-height: 2em;
+  align-items: stretch;
+  justify-content: space-between;
+`;
+
+const Content = styled.div`
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+`;
+
+const ToggleContent = styled.div`
+  margin: 5px;
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  text-align: center;
+  align-self: center;
 `;
