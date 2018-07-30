@@ -6,10 +6,11 @@ import { Field } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 import AdOptions from './AdOptions';
+import AdPositions from './AdPositions';
 import TextInput from './TextInput';
 import { Row, Label, Input, Select } from './styled';
 import { required } from '../validators';
-import { SMART_ADSERVER } from '../constants';
+import { SMART_ADSERVER, AD_SENSE, DOUBLE_CLICK } from '../constants';
 
 class AdCard extends Component {
   static propTypes = {
@@ -46,9 +47,9 @@ class AdCard extends Component {
             <Field name={`${member}.type`}>
               {({ input }) => (
                 <Select {...input}>
-                  <option value="smartads">Smart Adserver</option>
-                  <option value="adsense">AdSense</option>
-                  <option value="doubleclick">DoubleClick</option>
+                  <option value={SMART_ADSERVER}>Smart Adserver</option>
+                  <option value={AD_SENSE}>AdSense</option>
+                  <option value={DOUBLE_CLICK}>DoubleClick</option>
                 </Select>
               )}
             </Field>
@@ -57,6 +58,8 @@ class AdCard extends Component {
             {value => this.setState({ type: value })}
           </OnChange>
           <AdOptions member={member} type={type} />
+          <hr />
+          <AdPositions member={member} type={type} />
         </Content>
       </Card>
     );
@@ -67,7 +70,7 @@ export default SortableElement(AdCard);
 
 const Card = styled.div`
   width: 100%;
-  padding: 0 20px;
+  padding: 8px 20px;
   background-color: #fff;
   border-bottom: 1px solid #efefef;
   box-sizing: border-box;
