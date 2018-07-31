@@ -1,84 +1,74 @@
 /* eslint-disable jsx-a11y/label-has-for, no-console */
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Form } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import arrayMutators from 'final-form-arrays';
-import { SortableContainer } from 'react-sortable-hoc';
+import gql from 'graphql-tag';
+import { Mutation } from 'react-apollo';
+import SortableAdCards from './SortableAdCards';
 import { ButtonDefault, ButtonPrimary } from './Buttons';
 import { SMART_ADSERVER } from '../constants';
 
-import AdCard from './AdCard';
-
-const SortableList = SortableContainer(({ fields }) => (
-  <span>
-    {fields.map((member, index) => (
-      <AdCard
-        key={member}
-        member={member}
-        remove={() => fields.remove(index)}
-        index={index}
-      />
-    ))}
-  </span>
-));
-
-class SortableComponent extends Component {
-  static propTypes = {
-    fields: PropTypes.shape({
-      move: PropTypes.func.isRequired,
-    }).isRequired,
-  };
-
-  onSortEnd = ({ oldIndex, newIndex }) => {
-    this.props.fields.move(oldIndex, newIndex);
-  };
-
-  render() {
-    const { fields } = this.props;
-    return (
-      <SortableList fields={fields} onSortEnd={this.onSortEnd} useDragHandle />
-    );
+const UPDATE_SETTING = gql`
+  mutation UpdateSetting($id: ID!, $value: Json!) {
+    updateSetting(id: $id, value: $value) {
+      id
+    }
   }
-}
+`;
 
-const onSubmit = values => console.log('submit', values);
+// const onSubmit = values => console.log('submit', values);
 
-const AdForm = () => (
-  <Form
-    onSubmit={onSubmit}
-    mutators={arrayMutators}
-    render={({ handleSubmit, pristine, invalid }) => (
-      <div>
-        <Title>Ad Configuration</Title>
-        <StyledForm onSubmit={handleSubmit}>
-          <FieldArray name="ads.fills">
-            {({ fields }) => (
-              <div>
-                <Buttons>
-                  <ButtonDefault
-                    type="button"
-                    onClick={() => fields.push({ type: SMART_ADSERVER })}
-                  >
-                    Create Ad
-                  </ButtonDefault>
-                  <ButtonPrimary type="submit" disabled={pristine || invalid}>
-                    Submit
-                  </ButtonPrimary>
-                </Buttons>
-                <SortableComponent fields={fields} />
-              </div>
-            )}
-          </FieldArray>
-        </StyledForm>
-      </div>
+const AdForm = ({ id, initialValues }) => (
+  <Mutation mutation={UPDATE_SETTING}>
+    {updateSetting => (
+      <Form
+        initialValues={initialValues}
+        onSubmit={value => {
+          console.log('submit', value);
+          updateSetting({ variables: { id, value } });
+        }}
+        mutators={arrayMutators}
+        render={({ handleSubmit, pristine, invalid }) => (
+          <div>
+            <Title>Ad Configuration</Title>
+            <StyledForm onSubmit={handleSubmit}>
+              <FieldArray name="ads.fills">
+                {({ fields }) => (
+                  <div>
+                    <Buttons>
+                      <ButtonDefault
+                        type="button"
+                        onClick={() => fields.push({ type: SMART_ADSERVER })}
+                      >
+                        Create Ad
+                      </ButtonDefault>
+                      <ButtonPrimary
+                        type="submit"
+                        disabled={pristine || invalid}
+                      >
+                        Submit
+                      </ButtonPrimary>
+                    </Buttons>
+                    <SortableAdCards fields={fields} />
+                  </div>
+                )}
+              </FieldArray>
+            </StyledForm>
+          </div>
+        )}
+      />
     )}
-  />
+  </Mutation>
 );
 
 AdForm.propTypes = {
-  // url: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  initialValues: PropTypes.shape({
+    ads: PropTypes.shape({}).isRequired,
+  }).isRequired,
 };
 
 export default AdForm;

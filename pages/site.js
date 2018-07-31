@@ -4,14 +4,14 @@ import styled from 'styled-components';
 import getSite from '../lib/getSite';
 import AdForm from '../components/AdForm';
 
-const Site = ({ site }) =>
+const Site = ({ site, settingId, initialValues }) =>
   site ? (
     <Container>
       <Header>
         <Url>{site.url}</Url>
         <SiteId>{site.siteId}</SiteId>
       </Header>
-      <AdForm url={site.url} />
+      <AdForm id={settingId} initialValues={initialValues} />
     </Container>
   ) : (
     <div>The site doesn&apos;t exist</div>
@@ -30,11 +30,23 @@ Site.propTypes = {
       }),
     ).isRequired,
   }).isRequired,
+  settingId: PropTypes.string.isRequired,
+  initialValues: PropTypes.shape({
+    ads: PropTypes.shape({}).isRequired,
+  }).isRequired,
 };
 
 Site.getInitialProps = async ({ query: { id }, apolloClient }) => {
   const { site } = await getSite(apolloClient, id);
-  return { site };
+  const [saturnThemeSettings] = site.settings.filter(
+    ({ package: p }) => p.name === 'saturn-theme',
+  );
+
+  const {
+    id: settingId,
+    value: { ads },
+  } = saturnThemeSettings;
+  return { site, settingId, initialValues: { ads } };
 };
 
 export default Site;
