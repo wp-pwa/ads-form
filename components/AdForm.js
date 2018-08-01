@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-for, no-console */
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Form } from 'react-final-form';
@@ -12,60 +12,96 @@ import { ButtonDefault, ButtonPrimary } from './Buttons';
 import { SMART_ADSERVER } from '../constants';
 
 const UPDATE_SETTING = gql`
-  mutation UpdateSetting($id: ID!, $value: Json!) {
-    updateSetting(id: $id, value: $value) {
+  mutation UpdateSetting($id: ID!, $values: Json!) {
+    updateSetting(id: $id, value: $values) {
       id
     }
   }
 `;
 
-// const onSubmit = values => console.log('submit', values);
+const postLoadFormat = values => values;
 
-const AdForm = ({ id, initialValues }) => (
-  <Mutation mutation={UPDATE_SETTING}>
-    {updateSetting => (
-      <Form
-        initialValues={initialValues}
-        onSubmit={value => {
-          console.log('submit', value);
-          updateSetting({ variables: { id, value } });
-        }}
-        mutators={arrayMutators}
-        render={({ handleSubmit, pristine, invalid }) => (
-          <div>
-            <Title>Ad Configuration</Title>
-            <StyledForm onSubmit={handleSubmit}>
-              <FieldArray name="ads.fills">
-                {({ fields }) => (
-                  <div>
-                    <Buttons>
-                      <ButtonDefault
-                        type="button"
-                        onClick={() => fields.push({ type: SMART_ADSERVER })}
-                      >
-                        Create Ad
-                      </ButtonDefault>
-                      <ButtonPrimary
-                        type="submit"
-                        disabled={pristine || invalid}
-                      >
-                        Submit
-                      </ButtonPrimary>
-                    </Buttons>
-                    <SortableAdCards
-                      fields={fields}
-                      initialValues={initialValues}
-                    />
-                  </div>
-                )}
-              </FieldArray>
-            </StyledForm>
-          </div>
+const preSaveFormat = (values, originalValues) => {
+  const { ads } = values;
+  const { ads: _, ...others } = originalValues;
+  return { ads, ...others };
+};
+
+class AdForm extends Component {
+  state = {};
+
+  componentDidMount() {
+    this.load();
+  }
+
+  load = () => {
+    const { initialValues: originalValues } = this.props;
+    const initialValues = postLoadFormat(originalValues);
+    this.setState({ originalValues, initialValues });
+  };
+
+  save = async (values, updateSetting) => {
+    const { id } = this.props;
+    const valuesToSave = preSaveFormat(values, this.state.originalValues);
+    const result = await updateSetting({ variables: { id, values } });
+    this.setState({
+      originalValues: valuesToSave,
+      initialValues: postLoadFormat(valuesToSave),
+    });
+    return result;
+  };
+
+  render() {
+    const { initialValues } = this.state;
+    return (
+      <Mutation mutation={UPDATE_SETTING}>
+        {updateSetting => (
+          <Form
+            initialValues={initialValues}
+            onSubmit={async values => {
+              console.log('submit', values);
+              this.save(values, updateSetting);
+            }}
+            mutators={arrayMutators}
+            render={({ handleSubmit, pristine, invalid }) => (
+              <div>
+                <Title>Ad Configuration</Title>
+                <StyledForm onSubmit={handleSubmit}>
+                  <FieldArray name="ads.fills">
+                    {({ fields }) => (
+                      <div>
+                        <Buttons>
+                          <ButtonDefault
+                            type="button"
+                            onClick={() =>
+                              fields.push({ type: SMART_ADSERVER })
+                            }
+                          >
+                            Create Ad
+                          </ButtonDefault>
+                          <ButtonPrimary
+                            type="submit"
+                            disabled={pristine || invalid}
+                          >
+                            Submit
+                          </ButtonPrimary>
+                        </Buttons>
+                        <SortableAdCards
+                          fields={fields}
+                          initialValues={initialValues}
+                        />
+                      </div>
+                    )}
+                  </FieldArray>
+                </StyledForm>
+              </div>
+            )}
+          />
         )}
-      />
-    )}
-  </Mutation>
-);
+      </Mutation>
+    );
+  }
+}
 
 AdForm.propTypes = {
   id: PropTypes.string.isRequired,

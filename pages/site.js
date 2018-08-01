@@ -42,11 +42,8 @@ Site.getInitialProps = async ({ query: { id }, apolloClient }) => {
     ({ package: p }) => p.name === 'saturn-theme',
   );
 
-  const {
-    id: settingId,
-    value: { ads },
-  } = saturnThemeSettings;
-  return { site, settingId, initialValues: { ads } };
+  const { id: settingId, value: initialValues } = saturnThemeSettings;
+  return { site, settingId, initialValues };
 };
 
 export default Site;
