@@ -17,7 +17,14 @@ const AdPositions = ({ member }) => (
             Add Position
           </ButtonDefault>
         </div>
-        {fields && fields.map(name => <Position key={name} member={name} />)}
+        {fields &&
+          fields.map((name, index) => (
+            <Position
+              key={name}
+              member={name}
+              remove={() => fields.remove(index)}
+            />
+          ))}
       </>
     )}
   </FieldArray>

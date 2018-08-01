@@ -15,6 +15,7 @@ const itemTypes = {
 class Position extends Component {
   static propTypes = {
     member: PropTypes.string.isRequired,
+    remove: PropTypes.func.isRequired,
   };
 
   state = { type: 'list' };
@@ -40,7 +41,7 @@ class Position extends Component {
   };
 
   render() {
-    const { member } = this.props;
+    const { member, remove } = this.props;
     const items = itemTypes[this.state.type];
     return (
       <div>
@@ -68,7 +69,10 @@ class Position extends Component {
             ))}
         </Row>
         <OnChange name={`${member}.type`}>{this.setType}</OnChange>
-        {this.renderPositionSelector()}
+        <Container>
+          {this.renderPositionSelector()}
+          <Button onClick={remove}>{`${'❌'}`}</Button>
+        </Container>
       </div>
     );
   }
@@ -78,4 +82,26 @@ export default Position;
 
 const CheckBoxLabel = styled.label`
   margin-left: 8px;
+`;
+
+const Button = styled.div`
+  margin: 5px;
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  text-align: center;
+  align-self: center;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex: 1;
+  line-height: 2em;
+  box-sizing: border-box;
+  align-items: stretch;
+  justify-content: space-between;
 `;
