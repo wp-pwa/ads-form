@@ -31,9 +31,7 @@ Site.propTypes = {
     ).isRequired,
   }).isRequired,
   settingId: PropTypes.string.isRequired,
-  initialValues: PropTypes.shape({
-    ads: PropTypes.shape({}).isRequired,
-  }).isRequired,
+  initialValues: PropTypes.shape({}).isRequired,
 };
 
 Site.getInitialProps = async ({ query: { id }, apolloClient }) => {
