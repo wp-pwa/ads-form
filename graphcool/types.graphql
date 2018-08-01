@@ -22,7 +22,7 @@ type Site @model {
   id: ID! @isUnique
   siteId: String!
   url: String!
-  owner: User! @relation(name: "Owner")
+  owner: User @relation(name: "Owner")
   settings: [Setting!]! @relation(name: "SiteOnSetting")
 }
 
@@ -30,7 +30,7 @@ type Package @model {
   id: ID! @isUnique
   name: String!
   namespace: String!
-  setting: Setting @relation(name: "SettingOnPackage")
+  settings: [Setting!]! @relation(name: "SettingOnPackage")
 }
 
 type Setting @model {
