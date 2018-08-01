@@ -38,7 +38,7 @@ class AdCard extends Component {
       <Card>
         <Title>
           <DragHandle>{`${'↕️'}`}</DragHandle>
-          <Button onClick={this.toggleContent}>{isOpen ? '⏫' : '⏬'}</Button>
+          <Button onClick={this.toggleContent}>{isOpen ? '🔼' : '🔽'}</Button>
           <TextInput
             name={`${member}.name`}
             component={Input}
@@ -62,7 +62,7 @@ class AdCard extends Component {
             </Field>
           </Row>
           <OnChange name={`${member}.type`}>
-            {value => this.setState({ type: value })}
+            {value => value && this.setState({ type: value })}
           </OnChange>
           <AdOptions member={member} type={type} />
           <hr />

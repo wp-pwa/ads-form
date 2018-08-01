@@ -7,12 +7,12 @@ import { Field } from 'react-final-form';
 import SelectInput from '../SelectInput';
 import { Row, Label, Select } from '../styled';
 
-class Position extends Component {
-  static types = {
-    list: ['home', 'categories', 'tags'],
-    single: ['posts', 'pages', 'media'],
-  };
+const itemTypes = {
+  list: ['home', 'categories', 'tags'],
+  single: ['posts', 'pages', 'media'],
+};
 
+class Position extends Component {
   static propTypes = {
     member: PropTypes.string.isRequired,
   };
@@ -41,7 +41,7 @@ class Position extends Component {
 
   render() {
     const { member } = this.props;
-    const { type } = this.state;
+    const items = itemTypes[this.state.type];
     return (
       <div>
         <Row>
@@ -54,17 +54,18 @@ class Position extends Component {
               </Select>
             )}
           </Field>
-          {Position.types[type].map(value => (
-            <CheckBoxLabel key={value}>
-              <Field
-                name={`${member}.items`}
-                component="input"
-                type="checkbox"
-                value={value}
-              />{' '}
-              {value}
-            </CheckBoxLabel>
-          ))}
+          {items &&
+            items.map(value => (
+              <CheckBoxLabel key={value}>
+                <Field
+                  name={`${member}.items`}
+                  component="input"
+                  type="checkbox"
+                  value={value}
+                />{' '}
+                {value}
+              </CheckBoxLabel>
+            ))}
         </Row>
         <OnChange name={`${member}.type`}>{this.setType}</OnChange>
         {this.renderPositionSelector()}
