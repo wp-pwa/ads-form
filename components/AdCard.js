@@ -113,4 +113,7 @@ const ToggleContent = styled.div`
   line-height: 32px;
   text-align: center;
   align-self: center;
+  &:hover {
+    cursor: pointer;
+  }
 `;
