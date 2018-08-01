@@ -30,15 +30,14 @@ const preSaveFormat = (values, originalValues) => {
 class AdForm extends Component {
   state = {};
 
-  componentDidMount() {
-    this.load();
+  static getDerivedStateFromProps(props, state) {
+    if (!state.originalValues) {
+      const { initialValues: originalValues } = props;
+      const initialValues = postLoadFormat(originalValues);
+      return { originalValues, initialValues };
+    }
+    return null;
   }
-
-  load = () => {
-    const { initialValues: originalValues } = this.props;
-    const initialValues = postLoadFormat(originalValues);
-    this.setState({ originalValues, initialValues });
-  };
 
   save = async (values, updateSetting) => {
     const { id } = this.props;
@@ -105,9 +104,9 @@ class AdForm extends Component {
 
 AdForm.propTypes = {
   id: PropTypes.string.isRequired,
-  initialValues: PropTypes.shape({
-    ads: PropTypes.shape({}).isRequired,
-  }).isRequired,
+  // initialValues: PropTypes.shape({
+  //   ads: PropTypes.shape({}).isRequired,
+  // }).isRequired,
 };
 
 export default AdForm;

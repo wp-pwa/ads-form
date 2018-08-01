@@ -16,6 +16,7 @@ import { SMART_ADSERVER, AD_SENSE, DOUBLE_CLICK } from '../constants';
 class AdCard extends Component {
   static propTypes = {
     member: PropTypes.string.isRequired,
+    remove: PropTypes.func.isRequired,
     initialValues: PropTypes.shape({}).isRequired,
   };
 
@@ -31,12 +32,13 @@ class AdCard extends Component {
   };
 
   render() {
-    const { member } = this.props;
+    const { member, remove } = this.props;
     const { isOpen, type } = this.state;
     return (
       <Card>
         <Title>
           <DragHandle>{`${'↕️'}`}</DragHandle>
+          <Button onClick={this.toggleContent}>{isOpen ? '⏫' : '⏬'}</Button>
           <TextInput
             name={`${member}.name`}
             component={Input}
@@ -44,9 +46,7 @@ class AdCard extends Component {
             placeholder="Name"
             validate={required}
           />
-          <ToggleContent onClick={this.toggleContent}>
-            {isOpen ? '⏫' : '⏬'}
-          </ToggleContent>
+          <Button onClick={remove}>{`${'❌'}`}</Button>
         </Title>
         <Content isOpen={isOpen}>
           <Row>
@@ -106,7 +106,7 @@ const Content = styled.div`
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
 `;
 
-const ToggleContent = styled.div`
+const Button = styled.div`
   margin: 5px;
   height: 32px;
   width: 32px;

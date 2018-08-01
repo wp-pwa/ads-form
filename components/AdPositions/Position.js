@@ -55,7 +55,7 @@ class Position extends Component {
             )}
           </Field>
           {Position.types[type].map(value => (
-            <CheckBoxLabel>
+            <CheckBoxLabel key={value}>
               <Field
                 name={`${member}.items`}
                 component="input"

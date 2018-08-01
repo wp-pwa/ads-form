@@ -17,7 +17,7 @@ const AdPositions = ({ member }) => (
             Add Position
           </ButtonDefault>
         </div>
-        {fields.map(name => <Position member={name} />)}
+        {fields.map(name => <Position key={name} member={name} />)}
       </>
     )}
   </FieldArray>
