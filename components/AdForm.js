@@ -7,7 +7,7 @@ import { FieldArray } from 'react-final-form-arrays';
 import arrayMutators from 'final-form-arrays';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import SortableAdCards from './SortableAdCards';
+import AdCards from './AdCards';
 import { ButtonDefault, ButtonPrimary } from './Buttons';
 import { SMART_ADSERVER } from '../constants';
 
@@ -28,6 +28,10 @@ const preSaveFormat = (values, originalValues) => {
 };
 
 class AdForm extends Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+  };
+
   state = {};
 
   static getDerivedStateFromProps(props, state) {
@@ -85,7 +89,7 @@ class AdForm extends Component {
                             Submit
                           </ButtonPrimary>
                         </Buttons>
-                        <SortableAdCards
+                        <AdCards
                           fields={fields}
                           initialValues={initialValues}
                         />
@@ -101,13 +105,6 @@ class AdForm extends Component {
     );
   }
 }
-
-AdForm.propTypes = {
-  id: PropTypes.string.isRequired,
-  // initialValues: PropTypes.shape({
-  //   ads: PropTypes.shape({}).isRequired,
-  // }).isRequired,
-};
 
 export default AdForm;
 
