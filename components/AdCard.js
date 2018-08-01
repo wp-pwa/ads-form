@@ -21,7 +21,9 @@ class AdCard extends Component {
 
   state = {
     isOpen: false,
-    type: get(this.props.initialValues, `${this.props.member}.type`),
+    type:
+      get(this.props.initialValues, `${this.props.member}.type`) ||
+      SMART_ADSERVER,
   };
 
   toggleContent = () => {
