@@ -52,7 +52,10 @@ const AdForm = ({ id, initialValues }) => (
                         Submit
                       </ButtonPrimary>
                     </Buttons>
-                    <SortableAdCards fields={fields} />
+                    <SortableAdCards
+                      fields={fields}
+                      initialValues={initialValues}
+                    />
                   </div>
                 )}
               </FieldArray>

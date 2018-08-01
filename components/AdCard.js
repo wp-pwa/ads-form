@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Field } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
+import { get } from 'lodash';
 import AdOptions from './AdOptions';
 import AdPositions from './AdPositions';
 import TextInput from './TextInput';
@@ -15,9 +16,13 @@ import { SMART_ADSERVER, AD_SENSE, DOUBLE_CLICK } from '../constants';
 class AdCard extends Component {
   static propTypes = {
     member: PropTypes.string.isRequired,
+    initialValues: PropTypes.shape({}).isRequired,
   };
 
-  state = { isOpen: false, type: SMART_ADSERVER };
+  state = {
+    isOpen: false,
+    type: get(this.props.initialValues, `${this.props.member}.type`),
+  };
 
   toggleContent = () => {
     this.setState({ isOpen: !this.state.isOpen });
