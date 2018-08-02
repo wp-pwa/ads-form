@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { OnChange } from 'react-final-form-listeners';
 import { Field } from 'react-final-form';
+import { get } from 'lodash';
 import SelectInput from '../SelectInput';
 import { Row, Label, Select } from '../styled';
 
@@ -15,10 +16,13 @@ const itemTypes = {
 class Position extends Component {
   static propTypes = {
     member: PropTypes.string.isRequired,
+    initialValues: PropTypes.shape({}).isRequired,
     remove: PropTypes.func.isRequired,
   };
 
-  state = { type: 'list' };
+  state = {
+    type: get(this.props.initialValues, `${this.props.member}.type`) || 'list',
+  };
 
   setType = value => this.setState({ type: value });
 

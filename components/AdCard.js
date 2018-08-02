@@ -32,7 +32,7 @@ class AdCard extends Component {
   };
 
   render() {
-    const { member, remove } = this.props;
+    const { member, initialValues, remove } = this.props;
     const { isOpen, type } = this.state;
     return (
       <Card>
@@ -66,7 +66,11 @@ class AdCard extends Component {
           </OnChange>
           <AdOptions member={member} type={type} />
           <hr />
-          <AdPositions member={member} type={type} />
+          <AdPositions
+            member={member}
+            initialValues={initialValues}
+            type={type}
+          />
         </Content>
       </Card>
     );

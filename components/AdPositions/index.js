@@ -5,7 +5,7 @@ import { FieldArray } from 'react-final-form-arrays';
 import Position from './Position';
 import { ButtonDefault } from '../Buttons';
 
-const AdPositions = ({ member }) => (
+const AdPositions = ({ member, initialValues }) => (
   <FieldArray name={`${member}.positions`}>
     {({ fields }) => (
       <>
@@ -22,6 +22,7 @@ const AdPositions = ({ member }) => (
             <Position
               key={name}
               member={name}
+              initialValues={initialValues}
               remove={() => fields.remove(index)}
             />
           ))}
@@ -32,6 +33,7 @@ const AdPositions = ({ member }) => (
 
 AdPositions.propTypes = {
   member: PropTypes.string.isRequired,
+  initialValues: PropTypes.shape({}).isRequired,
 };
 
 export default AdPositions;
