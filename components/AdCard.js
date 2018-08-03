@@ -11,7 +11,12 @@ import AdPositions from './AdPositions';
 import TextInput from './TextInput';
 import { Row, Label, Input, Select } from './styled';
 import { required } from '../validators';
-import { SMART_ADSERVER, AD_SENSE, DOUBLE_CLICK } from '../constants';
+import {
+  SMART_ADSERVER,
+  AD_SENSE,
+  DOUBLE_CLICK,
+  SUN_MEDIA,
+} from '../constants';
 
 class AdCard extends Component {
   static propTypes = {
@@ -57,6 +62,7 @@ class AdCard extends Component {
                   <option value={SMART_ADSERVER}>Smart Adserver</option>
                   <option value={AD_SENSE}>AdSense</option>
                   <option value={DOUBLE_CLICK}>DoubleClick</option>
+                  <option value={SUN_MEDIA}>SunMedia</option>
                 </Select>
               )}
             </Field>

@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import SmartAd from './SmartAd';
 import AdSense from './AdSense';
 import DoubleClick from './DoubleClick';
-import { SMART_ADSERVER, AD_SENSE, DOUBLE_CLICK } from '../../constants';
+import SunMedia from './SunMedia';
+import {
+  SMART_ADSERVER,
+  AD_SENSE,
+  DOUBLE_CLICK,
+  SUN_MEDIA,
+} from '../../constants';
 
 const componentMap = {
   [SMART_ADSERVER]: SmartAd,
   [AD_SENSE]: AdSense,
   [DOUBLE_CLICK]: DoubleClick,
+  [SUN_MEDIA]: SunMedia,
 };
 
 const AdOptions = ({ member, type }) => {
@@ -18,7 +25,8 @@ const AdOptions = ({ member, type }) => {
 
 AdOptions.propTypes = {
   member: PropTypes.string.isRequired,
-  type: PropTypes.oneOf([SMART_ADSERVER, AD_SENSE, DOUBLE_CLICK]).isRequired,
+  type: PropTypes.oneOf([SMART_ADSERVER, AD_SENSE, DOUBLE_CLICK, SUN_MEDIA])
+    .isRequired,
 };
 
 export default AdOptions;
