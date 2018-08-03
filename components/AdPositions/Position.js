@@ -9,8 +9,8 @@ import SelectInput from '../SelectInput';
 import { Row, Label, Select } from '../styled';
 
 const itemTypes = {
-  list: ['home', 'categories', 'tags'],
-  single: ['posts', 'pages', 'media'],
+  list: ['home', 'category', 'tag'],
+  single: ['post', 'page', 'media'],
 };
 
 class Position extends Component {

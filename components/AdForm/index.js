@@ -7,9 +7,10 @@ import { FieldArray } from 'react-final-form-arrays';
 import arrayMutators from 'final-form-arrays';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import AdCards from './AdCards';
-import { ButtonDefault, ButtonPrimary } from './Buttons';
-import { SMART_ADSERVER } from '../constants';
+import { postLoadFormat, preSaveFormat } from './formats';
+import AdCards from '../AdCards';
+import { ButtonDefault, ButtonPrimary } from '../Buttons';
+import { SMART_ADSERVER } from '../../constants';
 
 const UPDATE_SETTING = gql`
   mutation UpdateSetting($id: ID!, $values: Json!) {
@@ -18,14 +19,6 @@ const UPDATE_SETTING = gql`
     }
   }
 `;
-
-const postLoadFormat = values => values;
-
-const preSaveFormat = (values, originalValues) => {
-  const { ads } = values;
-  const { ads: _, ...others } = originalValues;
-  return { ads, ...others };
-};
 
 class AdForm extends Component {
   static propTypes = {
@@ -46,6 +39,9 @@ class AdForm extends Component {
   save = async (values, updateSetting) => {
     const { id } = this.props;
     const valuesToSave = preSaveFormat(values, this.state.originalValues);
+
+    console.log('valuesToSave', valuesToSave);
+
     const result = await updateSetting({ variables: { id, values } });
     this.setState({
       originalValues: valuesToSave,
