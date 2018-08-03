@@ -42,7 +42,10 @@ class AdForm extends Component {
 
     console.log('valuesToSave', valuesToSave);
 
-    const result = await updateSetting({ variables: { id, values } });
+    const result = await updateSetting({
+      variables: { id, values: valuesToSave },
+    });
+
     this.setState({
       originalValues: valuesToSave,
       initialValues: postLoadFormat(valuesToSave),
