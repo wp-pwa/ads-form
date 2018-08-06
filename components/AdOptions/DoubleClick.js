@@ -19,12 +19,14 @@ const DoubleClick = ({ member }) => (
       label="width"
       placeholder="300"
       validate={requireNumber}
+      parse={input => Number(input)}
     />
     <TextInput
       name={`${member}.height`}
       label="height"
       placeholder="250"
       validate={requireNumber}
+      parse={input => Number(input)}
     />
   </>
 );
