@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 import { Row, Label, Select } from './styled';
 
-const SelectInput = ({ name, label, children }) => (
+const SelectInput = ({ name, label, children, ...rest }) => (
   <Row>
     <Label>{label}</Label>
-    <Field name={name}>
+    <Field name={name} {...rest}>
       {({ input }) => <Select {...input}>{children}</Select>}
     </Field>
   </Row>

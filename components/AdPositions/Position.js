@@ -45,7 +45,11 @@ class Position extends Component {
     const { type } = this.state;
     const element = type === 'list' ? 'post' : 'paragraph';
     return (
-      <SelectInput name={`${member}.position`} label="position">
+      <SelectInput
+        name={`${member}.position`}
+        label="position"
+        parse={input => Number(input)}
+      >
         {Array(30)
           .fill(undefined)
           .map((e, n) => n)
