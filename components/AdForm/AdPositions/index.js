@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'react-final-form-arrays';
 import Position from './Position';
-import { ButtonDefault } from '../Buttons';
+import { ButtonDefault } from '../../Buttons';
 
 const AdPositions = ({ member, initialValues }) => (
   <FieldArray name={`${member}.positions`}>

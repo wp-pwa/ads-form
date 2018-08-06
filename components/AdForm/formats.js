@@ -1,7 +1,55 @@
 import { flatten } from 'lodash';
 
+/*
+
+Position:
+
+{
+  position: Number,
+  type: Enum['list', 'single', 'custom'],
+  items: Array || String
+}
+
+Rule:
+
+{
+  names: Array[String], // this can be added before send it to graphcool
+  position: Number,
+  rules: {
+    item: Array[{
+      type: String
+    }],
+  }
+}
+
+
+*/
+
 const listTypes = ['latest', 'category', 'tag'];
 const singleTypes = ['post', 'page', 'media'];
+
+export const toNumber = value => Number(value);
+export const toArray = text => text.replace(/\s+/g, '').split(',');
+
+export const toPosition = ({ position, rules: { item: itemRules } }) => {
+  const items = itemRules.map(({ type }) => type);
+
+  let type = 'custom';
+
+  if (items.some(item => listTypes.includes(item))) type = 'list';
+  if (items.some(item => singleTypes.includes(item))) type = 'single';
+
+  return {
+    position,
+    type,
+    items,
+  };
+};
+
+export const toRule = ({ position, items }) => ({
+  position,
+  rules: { item: items.map(type => ({ type })) },
+});
 
 export const postLoadFormat = ({ ads, slots = [] }) => {
   const adsByName = ads.fills.reduce((byName, ad) => {
@@ -36,16 +84,8 @@ export const postLoadFormat = ({ ads, slots = [] }) => {
   });
 
   Object.entries(slotsByAdName).forEach(([adName, adSlots]) => {
-    adsByName[adName].positions = adSlots.map(({ rules, position }) => {
-      const items = rules.item ? rules.item.map(({ type }) => type) : [];
-
-      let type = 'custom';
-
-      if (items.some(item => listTypes.includes(item))) type = 'list';
-      if (items.some(item => singleTypes.includes(item))) type = 'single';
-
-      return { type, items, position };
-    });
+    // Remove names from slot definitions
+    adsByName[adName].positions = adSlots.map(toPosition);
   });
 
   console.log({ adsByName });
@@ -59,15 +99,11 @@ export const preSaveFormat = (values, originalValues) => {
 
   const adSlots = flatten(
     ads.fills.map(({ name, positions }) =>
-      positions.map(({ items, position }) => ({
-        position,
+      // Insert ad names into slot definitions
+      positions.map(toRule).map(({ rules, position }) => ({
         names: [name],
-        rules: {
-          item: (items instanceof Array
-            ? items
-            : items.replace(/\s+/g, '').split(',')
-          ).map(type => ({ type })),
-        },
+        position,
+        rules,
       })),
     ),
   );

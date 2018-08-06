@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
-import TextInput from '../TextInput';
-import { required, mustBeNumber, composeValidators } from '../../validators';
+import TextInput from '../../TextInput';
+import { required, mustBeNumber, composeValidators } from '../../../validators';
+import { toNumber } from '../formats';
 
 const requireNumber = composeValidators(required, mustBeNumber);
 
@@ -19,14 +20,14 @@ const SunMedia = ({ member }) => (
       label="width"
       placeholder="300"
       validate={requireNumber}
-      parse={input => Number(input)}
+      parse={toNumber}
     />
     <TextInput
       name={`${member}.height`}
       label="height"
       placeholder="250"
       validate={requireNumber}
-      parse={input => Number(input)}
+      parse={toNumber}
     />
   </>
 );

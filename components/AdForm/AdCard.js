@@ -8,15 +8,15 @@ import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { get } from 'lodash';
 import AdOptions from './AdOptions';
 import AdPositions from './AdPositions';
-import TextInput from './TextInput';
-import { Row, Label, Input, Select } from './styled';
-import { required } from '../validators';
+import TextInput from '../TextInput';
+import { Row, Label, Input, Select } from '../styled';
+import { required } from '../../validators';
 import {
   SMART_ADSERVER,
   AD_SENSE,
   DOUBLE_CLICK,
   SUN_MEDIA,
-} from '../constants';
+} from '../../constants';
 
 class AdCard extends Component {
   static propTypes = {

@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
-import TextInput from '../TextInput';
-import SelectInput from '../SelectInput';
-import { required, mustBeNumber, composeValidators } from '../../validators';
+import TextInput from '../../TextInput';
+import SelectInput from '../../SelectInput';
+import { required, mustBeNumber, composeValidators } from '../../../validators';
+import { toNumber } from '../formats';
 
 const requireNumber = composeValidators(required, mustBeNumber);
 
@@ -32,14 +33,14 @@ const SmartAd = ({ member }) => (
       label="width"
       placeholder="300"
       validate={requireNumber}
-      parse={input => Number(input)}
+      parse={toNumber}
     />
     <TextInput
       name={`${member}.height`}
       label="height"
       placeholder="250"
       validate={requireNumber}
-      parse={input => Number(input)}
+      parse={toNumber}
     />
     <SelectInput name={`${member}.callType`} label="callType">
       <option value="iframe">iframe</option>

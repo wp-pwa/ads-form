@@ -8,7 +8,7 @@ import arrayMutators from 'final-form-arrays';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import { postLoadFormat, preSaveFormat } from './formats';
-import AdCards from '../AdCards';
+import AdCards from './AdCards';
 import { ButtonDefault, ButtonPrimary } from '../Buttons';
 import { SMART_ADSERVER } from '../../constants';
 

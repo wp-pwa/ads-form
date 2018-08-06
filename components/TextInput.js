@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 import { Row, Label, Input, ErrorMsg } from './styled';
 
-const TextInput = ({ name, label, placeholder, validate }) => (
-  <Field name={name} validate={validate}>
+const TextInput = ({ name, label, placeholder, validate, ...rest }) => (
+  <Field name={name} validate={validate} {...rest}>
     {({ input, meta }) => (
       <Row>
         {label && <Label>{label}</Label>}

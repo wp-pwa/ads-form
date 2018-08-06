@@ -5,9 +5,10 @@ import styled from 'styled-components';
 import { OnChange } from 'react-final-form-listeners';
 import { Field } from 'react-final-form';
 import { get } from 'lodash';
-import SelectInput from '../SelectInput';
-import TextInput from '../TextInput';
-import { Row, Label, Select } from '../styled';
+import SelectInput from '../../SelectInput';
+import TextInput from '../../TextInput';
+import { Row, Label, Select } from '../../styled';
+import { toNumber, toArray } from '../formats';
 
 const listTypes = ['latest', 'category', 'tag'];
 const singleTypes = ['post', 'page', 'media'];
@@ -48,7 +49,7 @@ class Position extends Component {
       <SelectInput
         name={`${member}.position`}
         label="position"
-        parse={input => Number(input)}
+        parse={toNumber}
       >
         {Array(30)
           .fill(undefined)
@@ -92,7 +93,11 @@ class Position extends Component {
               </CheckBoxLabel>
             ))
           ) : (
-            <TextInput name={`${member}.items`} value={customPostTypes} />
+            <TextInput
+              name={`${member}.items`}
+              value={customPostTypes}
+              parse={toArray}
+            />
           )}
         </Row>
         <OnChange name={`${member}.type`}>{this.setType}</OnChange>

@@ -9,7 +9,7 @@ import {
   AD_SENSE,
   DOUBLE_CLICK,
   SUN_MEDIA,
-} from '../../constants';
+} from '../../../constants';
 
 const componentMap = {
   [SMART_ADSERVER]: SmartAd,
