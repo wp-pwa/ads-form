@@ -6,11 +6,15 @@ import { OnChange } from 'react-final-form-listeners';
 import { Field } from 'react-final-form';
 import { get } from 'lodash';
 import SelectInput from '../SelectInput';
+import TextInput from '../TextInput';
 import { Row, Label, Select } from '../styled';
 
+const listTypes = ['latest', 'category', 'tag'];
+const singleTypes = ['post', 'page', 'media'];
+
 const itemTypes = {
-  list: ['home', 'category', 'tag'],
-  single: ['post', 'page', 'media'],
+  list: listTypes,
+  single: singleTypes,
 };
 
 class Position extends Component {
@@ -20,11 +24,21 @@ class Position extends Component {
     remove: PropTypes.func.isRequired,
   };
 
-  state = {
-    type: get(this.props.initialValues, `${this.props.member}.type`) || 'list',
-  };
+  constructor(props) {
+    super(props);
+
+    const type = get(props.initialValues, `${props.member}.type`) || 'list';
+
+    const customPostTypes =
+      type === 'custom'
+        ? get(props.initialValues, `${props.member}.items`)
+        : '';
+
+    this.state = { type, customPostTypes };
+  }
 
   setType = value => this.setState({ type: value });
+  setCustomPostTypes = value => this.setState({ customPostTypes: value });
 
   renderPositionSelector = () => {
     const { member } = this.props;
@@ -46,7 +60,8 @@ class Position extends Component {
 
   render() {
     const { member, remove } = this.props;
-    const items = itemTypes[this.state.type];
+    const { type, customPostTypes } = this.state;
+    const items = itemTypes[type];
     return (
       <div>
         <Row>
@@ -56,10 +71,11 @@ class Position extends Component {
               <Select {...input}>
                 <option value="list">list</option>
                 <option value="single">single</option>
+                <option value="custom">custom</option>
               </Select>
             )}
           </Field>
-          {items &&
+          {items instanceof Array ? (
             items.map(value => (
               <CheckBoxLabel key={value}>
                 <Field
@@ -70,7 +86,10 @@ class Position extends Component {
                 />{' '}
                 {value}
               </CheckBoxLabel>
-            ))}
+            ))
+          ) : (
+            <TextInput name={`${member}.items`} value={customPostTypes} />
+          )}
         </Row>
         <OnChange name={`${member}.type`}>{this.setType}</OnChange>
         <Container>

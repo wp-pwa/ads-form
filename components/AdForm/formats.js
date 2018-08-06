@@ -1,5 +1,8 @@
 import { flatten } from 'lodash';
 
+const listTypes = ['latest', 'category', 'tag'];
+const singleTypes = ['post', 'page', 'media'];
+
 export const postLoadFormat = ({ ads, slots = [] }) => {
   const adsByName = ads.fills.reduce((byName, ad) => {
     byName[ad.name] = { ...ad };
@@ -35,11 +38,11 @@ export const postLoadFormat = ({ ads, slots = [] }) => {
   Object.entries(slotsByAdName).forEach(([adName, adSlots]) => {
     adsByName[adName].positions = adSlots.map(({ rules, position }) => {
       const items = rules.item ? rules.item.map(({ type }) => type) : [];
-      const type = items.some(item =>
-        ['home', 'tag', 'category'].includes(item),
-      )
-        ? 'list'
-        : 'single';
+
+      let type = 'custom';
+
+      if (items.some(item => listTypes.includes(item))) type = 'list';
+      if (items.some(item => singleTypes.includes(item))) type = 'single';
 
       return { type, items, position };
     });
@@ -52,14 +55,19 @@ export const postLoadFormat = ({ ads, slots = [] }) => {
 
 export const preSaveFormat = (values, originalValues) => {
   const { ads, slots } = values;
-  const { ads: _ads, slots: _slots, ...others } = originalValues;
+  const { ads: __ads, slots: __slots, ...others } = originalValues;
 
   const adSlots = flatten(
     ads.fills.map(({ name, positions }) =>
       positions.map(({ items, position }) => ({
         position,
         names: [name],
-        rules: { item: items.map(type => ({ type })) },
+        rules: {
+          item: (items instanceof Array
+            ? items
+            : items.replace(/\s+/g, '').split(',')
+          ).map(type => ({ type })),
+        },
       })),
     ),
   );
