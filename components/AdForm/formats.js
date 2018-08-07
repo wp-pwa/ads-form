@@ -1,30 +1,5 @@
 import { flatten } from 'lodash';
 
-/*
-
-Position:
-
-{
-  position: Number,
-  type: Enum['list', 'single', 'custom'],
-  items: Array || String
-}
-
-Rule:
-
-{
-  names: Array[String], // this can be added before send it to graphcool
-  position: Number,
-  rules: {
-    item: Array[{
-      type: String
-    }],
-  }
-}
-
-
-*/
-
 const listTypes = ['latest', 'category', 'tag'];
 const singleTypes = ['post', 'page', 'media'];
 
@@ -51,7 +26,7 @@ export const toRule = ({ position, items }) => ({
   rules: { item: items.map(type => ({ type })) },
 });
 
-export const postLoadFormat = ({ ads, slots = [] }) => {
+export const postLoadFormat = ({ ads = { fills: [] }, slots = [] }) => {
   const adsByName = ads.fills.reduce((byName, ad) => {
     byName[ad.name] = { ...ad };
     return byName;
@@ -87,8 +62,6 @@ export const postLoadFormat = ({ ads, slots = [] }) => {
     // Remove names from slot definitions
     adsByName[adName].positions = adSlots.map(toPosition);
   });
-
-  console.log({ adsByName });
 
   return { ads: { fills: Object.values(adsByName) }, slots: noAdSlots };
 };
