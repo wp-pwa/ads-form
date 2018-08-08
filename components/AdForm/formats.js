@@ -71,7 +71,7 @@ export const preSaveFormat = (values, originalValues) => {
   const { ads: __ads, slots: __slots, ...others } = originalValues;
 
   const adSlots = flatten(
-    ads.fills.map(({ name, positions }) =>
+    ads.fills.map(({ name, positions = [] }) =>
       // Insert ad names into slot definitions
       positions.map(toRule).map(({ rules, position }) => ({
         names: [name],
