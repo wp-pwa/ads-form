@@ -2,7 +2,7 @@
   "name": "frontity-ads-form",
   "version": "0.0.0",
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "scripts": {
     "test": "jest --watch --silent --passWithNoTests",
     "test:ci": "jest --silent --passWithNoTests",
