@@ -39,19 +39,22 @@ class Position extends Component {
     const { type, customPostTypes } = this.state;
     const { items } = types[type];
     return items ? (
-      items.map(value => (
-        <CheckBoxLabel key={value}>
-          <Field
-            name={`${member}.items`}
-            component="input"
-            type="checkbox"
-            value={value}
-          />
-          {value}
-        </CheckBoxLabel>
-      ))
+      <ItemSelector>
+        {items.map(value => (
+          <CheckBoxLabel key={value}>
+            <Field
+              name={`${member}.items`}
+              component="input"
+              type="checkbox"
+              value={value}
+            />
+            {value}
+          </CheckBoxLabel>
+        ))}
+      </ItemSelector>
     ) : (
       <TextInput
+        label=" "
         name={`${member}.items`}
         value={customPostTypes}
         parse={toArray}
@@ -90,7 +93,7 @@ class Position extends Component {
             )}
           </Field>
         </Row>
-        <ItemSelector>{this.renderItemSelector()}</ItemSelector>
+        {this.renderItemSelector()}
         <OnChange name={`${member}.type`}>{this.setType}</OnChange>
         <PositionSelector>
           {this.renderPositionSelector()}
