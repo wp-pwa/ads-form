@@ -12,10 +12,16 @@ Object {
             "items": Array [
               "post",
               "page",
-              "media",
             ],
             "position": 1,
             "type": "single",
+          },
+          Object {
+            "items": Array [
+              "media",
+            ],
+            "position": 1,
+            "type": "media",
           },
         ],
         "slot": "/12345678/roba_doble",
@@ -112,6 +118,16 @@ Object {
           Object {
             "type": "page",
           },
+        ],
+      },
+    },
+    Object {
+      "names": Array [
+        "ad_1",
+      ],
+      "position": 1,
+      "rules": Object {
+        "item": Array [
           Object {
             "type": "media",
           },

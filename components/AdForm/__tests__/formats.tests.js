@@ -33,7 +33,14 @@ const databaseValues = {
       names: ['ad_1'],
       position: 1,
       rules: {
-        item: [{ type: 'post' }, { type: 'page' }, { type: 'media' }],
+        item: [{ type: 'post' }, { type: 'page' }],
+      },
+    },
+    {
+      names: ['ad_1'],
+      position: 1,
+      rules: {
+        item: [{ type: 'media' }],
       },
     },
     {
@@ -53,7 +60,8 @@ const formValues = {
         name: 'ad_1',
         height: '600',
         positions: [
-          { type: 'single', items: ['post', 'page', 'media'], position: 1 },
+          { type: 'single', items: ['post', 'page'], position: 1 },
+          { type: 'media', items: ['media'], position: 1 },
         ],
         type: 'doubleclick',
         slot: '/12345678/roba_doble',
