@@ -1,7 +1,5 @@
 import { flatten } from 'lodash';
-
-const listTypes = ['latest', 'category', 'tag'];
-const singleTypes = ['post', 'page', 'media'];
+import types from './types';
 
 export const toNumber = value => Number(value);
 export const toArray = text => text.replace(/\s+/g, '').split(',');
@@ -11,8 +9,9 @@ export const toPosition = ({ position, rules: { item: itemRules } }) => {
 
   let type = 'custom';
 
-  if (items.some(item => listTypes.includes(item))) type = 'list';
-  if (items.some(item => singleTypes.includes(item))) type = 'single';
+  if (items.some(item => types.list.items.includes(item))) type = 'list';
+  if (items.some(item => types.single.items.includes(item))) type = 'single';
+  if (items.some(item => types.media.items.includes(item))) type = 'media';
 
   return {
     position,
