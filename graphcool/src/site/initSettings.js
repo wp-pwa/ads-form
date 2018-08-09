@@ -1,11 +1,11 @@
 import { fromEvent } from 'graphcool-lib';
 
-async function getSaturnPackage(api) {
+async function getPackageId(api, name) {
   const query = `
-    query {
+    query GetPackage($name: String!) {
       allPackages(
         filter: {
-          name: "saturn-theme"
+          name: $name
         }
       ) {
         id
@@ -13,7 +13,11 @@ async function getSaturnPackage(api) {
     }
   `;
 
-  return api.request(query);
+  const {
+    allPackages: [{ id: packageId }],
+  } = await api.request(query, { name });
+
+  return packageId;
 }
 
 async function createSetting(api, siteId, packageId) {
@@ -36,11 +40,18 @@ export default async event => {
   try {
     const api = fromEvent(event).api('simple/v1');
     const { id: siteId } = event.data;
-    const {
-      allPackages: [{ id: packageId }],
-    } = await getSaturnPackage(api);
-    const response = await createSetting(api, siteId, packageId);
-    return { data: event.data, siteId, packageId, response };
+
+    const [themeId, connectionId] = await Promise.all([
+      getPackageId(api, 'saturn-theme'),
+      getPackageId(api, 'wp-org-connection'),
+    ]);
+
+    const responses = await Promise.all([
+      createSetting(api, siteId, themeId),
+      createSetting(api, siteId, connectionId),
+    ]);
+
+    return { data: event.data, siteId, themeId, connectionId, responses };
   } catch (error) {
     return { data: event.data, error: `something went wrong: ${error}` };
   }
