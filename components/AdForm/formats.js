@@ -7,7 +7,7 @@ export const toArray = text => text.replace(/\s+/g, '').split(',');
 export const toPosition = ({ position, rules: { item: itemRules } }) => {
   const items = itemRules.map(({ type }) => type);
 
-  let type = 'custom';
+  let type = 'customPostType';
 
   if (items.some(item => types.list.items.includes(item))) type = 'list';
   if (items.some(item => types.single.items.includes(item))) type = 'single';
