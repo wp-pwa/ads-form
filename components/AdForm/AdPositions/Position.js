@@ -24,7 +24,7 @@ class Position extends Component {
     const type = get(props.initialValues, `${props.member}.type`) || 'list';
 
     const customPostTypes =
-      type === 'custom'
+      type === 'customPostType'
         ? get(props.initialValues, `${props.member}.items`)
         : '';
 
