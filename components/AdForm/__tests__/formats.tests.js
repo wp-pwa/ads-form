@@ -6,7 +6,6 @@ const databaseValues = {
       {
         name: 'ad_1',
         height: '600',
-        positions: [{ type: 'single', items: ['post', 'page'], position: 2 }],
         type: 'doubleclick',
         slot: '/12345678/roba_doble',
         width: '300',
@@ -14,7 +13,6 @@ const databaseValues = {
       {
         name: 'ad_3',
         height: '250',
-        positions: [{ type: 'single', items: ['post', 'page'], position: 2 }],
         type: 'doubleclick',
         slot: '/12345678/ad_roba',
         width: '300',
@@ -24,14 +22,14 @@ const databaseValues = {
   slots: [
     {
       names: ['iframe'],
-      position: 2,
+      position: 'some_theme_position',
       rules: {
         item: [{ type: 'post' }, { type: 'page' }],
       },
     },
     {
       names: ['ad_1'],
-      position: 1,
+      position: 'some_theme_position',
       rules: {
         item: [{ type: 'post' }, { type: 'page' }],
       },
@@ -45,7 +43,7 @@ const databaseValues = {
     },
     {
       names: ['ad_3'],
-      position: 2,
+      position: 'some_theme_position',
       rules: {
         item: [{ type: 'post' }, { type: 'page' }],
       },
@@ -60,8 +58,12 @@ const formValues = {
         name: 'ad_1',
         height: '600',
         positions: [
-          { type: 'single', items: ['post', 'page'], position: 1 },
-          { type: 'media', items: ['media'], position: 1 },
+          {
+            type: 'single',
+            items: ['post', 'page'],
+            position: 'some_theme_position',
+          },
+          { type: 'media', items: ['media'], position: 'some_theme_position' },
         ],
         type: 'doubleclick',
         slot: '/12345678/roba_doble',
@@ -70,7 +72,13 @@ const formValues = {
       {
         name: 'ad_3',
         height: '250',
-        positions: [{ type: 'single', items: ['post', 'page'], position: 2 }],
+        positions: [
+          {
+            type: 'single',
+            items: ['post', 'page'],
+            position: 'some_theme_position',
+          },
+        ],
         type: 'doubleclick',
         slot: '/12345678/ad_roba',
         width: '300',
@@ -80,7 +88,7 @@ const formValues = {
   slots: [
     {
       names: ['iframe'],
-      position: 2,
+      position: 'some_theme_position',
       rules: {
         item: [{ type: 'post' }, { type: 'page' }],
       },

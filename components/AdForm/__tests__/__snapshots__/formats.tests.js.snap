@@ -13,7 +13,7 @@ Object {
               "post",
               "page",
             ],
-            "position": 1,
+            "position": "some_theme_position",
             "type": "single",
           },
           Object {
@@ -37,7 +37,7 @@ Object {
               "post",
               "page",
             ],
-            "position": 2,
+            "position": "some_theme_position",
             "type": "single",
           },
         ],
@@ -52,7 +52,7 @@ Object {
       "names": Array [
         "iframe",
       ],
-      "position": 2,
+      "position": "some_theme_position",
       "rules": Object {
         "item": Array [
           Object {
@@ -93,7 +93,7 @@ Object {
       "names": Array [
         "iframe",
       ],
-      "position": 2,
+      "position": "some_theme_position",
       "rules": Object {
         "item": Array [
           Object {
@@ -109,7 +109,7 @@ Object {
       "names": Array [
         "ad_1",
       ],
-      "position": 1,
+      "position": "some_theme_position",
       "rules": Object {
         "item": Array [
           Object {
@@ -125,7 +125,7 @@ Object {
       "names": Array [
         "ad_1",
       ],
-      "position": 1,
+      "position": "some_theme_position",
       "rules": Object {
         "item": Array [
           Object {
@@ -138,7 +138,7 @@ Object {
       "names": Array [
         "ad_3",
       ],
-      "position": 2,
+      "position": "some_theme_position",
       "rules": Object {
         "item": Array [
           Object {
