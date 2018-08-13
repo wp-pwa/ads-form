@@ -1,12 +1,33 @@
 import { range } from 'lodash';
 
-export const listPositions = ['before post 1'].concat(
-  range(1, 30).map(n => `after post ${n}`),
-);
+const MIN_LIMIT_VALUE = 300; // This must be equal to this: https://github.com/frontity/saturn-theme/blob/dev/src/shared/components/HtmlToReactConverter/injectSlots.js#L6
 
-export const singlePositions = ['before paragraph 1'].concat(
-  range(1, 30).map(n => `after paragraph ${n}`),
-);
+export const listPositions = [
+  // 'before item 1',
+  'before post 1',
+  ...range(1, 21).map(n => `after post ${n}`),
+  // ...range(1, 21).map(n => `after item ${n}`)
+  'before footer',
+  'after footer',
+];
+
+export const singlePositions = [
+  // 'before item 1',
+  'before content',
+  ...range(1, 11).map(
+    n => `after ${MIN_LIMIT_VALUE * n} characters in content`,
+  ),
+  'after content',
+  // ...range(1, 21).map(n => `after item ${n}`)
+];
+
+export const mediaPositions = [
+  // 'before item 1',
+  'before image',
+  'after image',
+  // 'after item 1',
+  // 'before footer',
+];
 
 export default {
   list: {
@@ -19,7 +40,7 @@ export default {
   },
   media: {
     items: ['media'],
-    positions: ['before image', 'after image'],
+    positions: mediaPositions,
   },
   customPostType: {
     positions: singlePositions,
