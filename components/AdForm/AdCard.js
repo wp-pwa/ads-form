@@ -23,6 +23,7 @@ class AdCard extends Component {
     member: PropTypes.string.isRequired,
     remove: PropTypes.func.isRequired,
     initialValues: PropTypes.shape({}).isRequired,
+    form: PropTypes.shape({}).isRequired,
   };
 
   state = {
@@ -37,7 +38,7 @@ class AdCard extends Component {
   };
 
   render() {
-    const { member, initialValues, remove } = this.props;
+    const { member, initialValues, remove, form } = this.props;
     const { isOpen, type } = this.state;
     return (
       <Card>
@@ -76,6 +77,7 @@ class AdCard extends Component {
             member={member}
             initialValues={initialValues}
             type={type}
+            form={form}
           />
         </Content>
       </Card>

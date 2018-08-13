@@ -1,5 +1,5 @@
 import { flatten } from 'lodash';
-import types from './types';
+import { types } from './types';
 
 export const toNumber = value => Number(value);
 export const toArray = text => text.replace(/\s+/g, '').split(',');
