@@ -8,15 +8,8 @@ import { get } from 'lodash';
 import SelectInput from '../../SelectInput';
 import TextInput from '../../TextInput';
 import { Row, Label, Select } from '../../styled';
-import { toNumber, toArray } from '../formats';
-
-const listTypes = ['latest', 'category', 'tag'];
-const singleTypes = ['post', 'page', 'media'];
-
-const itemTypes = {
-  list: listTypes,
-  single: singleTypes,
-};
+import { toArray } from '../formats';
+import types from '../types';
 
 class Position extends Component {
   static propTypes = {
@@ -31,7 +24,7 @@ class Position extends Component {
     const type = get(props.initialValues, `${props.member}.type`) || 'list';
 
     const customPostTypes =
-      type === 'custom'
+      type === 'customPostType'
         ? get(props.initialValues, `${props.member}.items`)
         : '';
 
@@ -41,32 +34,50 @@ class Position extends Component {
   setType = value => this.setState({ type: value });
   setCustomPostTypes = value => this.setState({ customPostTypes: value });
 
+  renderItemSelector = () => {
+    const { member } = this.props;
+    const { type, customPostTypes } = this.state;
+    const { items } = types[type];
+    return items ? (
+      <ItemSelector>
+        {items.map(value => (
+          <CheckBoxLabel key={value}>
+            <Field
+              name={`${member}.items`}
+              component="input"
+              type="checkbox"
+              value={value}
+            />
+            {value}
+          </CheckBoxLabel>
+        ))}
+      </ItemSelector>
+    ) : (
+      <TextInput
+        label=" "
+        name={`${member}.items`}
+        value={customPostTypes}
+        parse={toArray}
+      />
+    );
+  };
+
   renderPositionSelector = () => {
     const { member } = this.props;
     const { type } = this.state;
-    const element = type === 'list' ? 'post' : 'paragraph';
     return (
-      <SelectInput
-        name={`${member}.position`}
-        label="position"
-        parse={toNumber}
-      >
-        {Array(30)
-          .fill(undefined)
-          .map((e, n) => n)
-          .map(n => (
-            <option key={`post${n}`} value={n}>
-              {n === 0 ? `before ${element} 1` : `after ${element} ${n}`}
-            </option>
-          ))}
+      <SelectInput name={`${member}.position`} label="position">
+        {types[type].positions.map(position => (
+          <option key={position} value={position}>
+            {position}
+          </option>
+        ))}
       </SelectInput>
     );
   };
 
   render() {
     const { member, remove } = this.props;
-    const { type, customPostTypes } = this.state;
-    const items = itemTypes[type];
     return (
       <div>
         <Row>
@@ -76,35 +87,18 @@ class Position extends Component {
               <Select {...input}>
                 <option value="list">list</option>
                 <option value="single">single</option>
-                <option value="custom">custom</option>
+                <option value="media">media</option>
+                <option value="customPostType">custom post type</option>
               </Select>
             )}
           </Field>
-          {items instanceof Array ? (
-            items.map(value => (
-              <CheckBoxLabel key={value}>
-                <Field
-                  name={`${member}.items`}
-                  component="input"
-                  type="checkbox"
-                  value={value}
-                />{' '}
-                {value}
-              </CheckBoxLabel>
-            ))
-          ) : (
-            <TextInput
-              name={`${member}.items`}
-              value={customPostTypes}
-              parse={toArray}
-            />
-          )}
         </Row>
+        {this.renderItemSelector()}
         <OnChange name={`${member}.type`}>{this.setType}</OnChange>
-        <Container>
+        <PositionSelector>
           {this.renderPositionSelector()}
           <Button onClick={remove}>{`${'❌'}`}</Button>
-        </Container>
+        </PositionSelector>
       </div>
     );
   }
@@ -128,7 +122,20 @@ const Button = styled.div`
   }
 `;
 
-const Container = styled.div`
+const ItemSelector = styled.div`
+  padding-left: 110px;
+  display: flex;
+  flex: 1;
+  line-height: 2em;
+  box-sizing: border-box;
+  align-items: stretch;
+  justify-content: flex-start;
+  & > * {
+    margin-left: 15px;
+  }
+`;
+
+const PositionSelector = styled.div`
   position: relative;
   display: flex;
   flex: 1;
