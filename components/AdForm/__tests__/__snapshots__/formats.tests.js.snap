@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`formats › postLoadFormat works as expected 1`] = `
+Object {
+  "ads": Object {
+    "fills": Array [
+      Object {
+        "height": "600",
+        "name": "ad_1",
+        "positions": Array [
+          Object {
+            "items": Array [
+              "post",
+              "page",
+            ],
+            "position": "some_theme_position",
+            "type": "single",
+          },
+          Object {
+            "items": Array [
+              "media",
+            ],
+            "position": 1,
+            "type": "media",
+          },
+        ],
+        "slot": "/12345678/roba_doble",
+        "type": "doubleclick",
+        "width": "300",
+      },
+      Object {
+        "height": "250",
+        "name": "ad_3",
+        "positions": Array [
+          Object {
+            "items": Array [
+              "post",
+              "page",
+            ],
+            "position": "some_theme_position",
+            "type": "single",
+          },
+        ],
+        "slot": "/12345678/ad_roba",
+        "type": "doubleclick",
+        "width": "300",
+      },
+    ],
+  },
+  "slots": Array [
+    Object {
+      "names": Array [
+        "iframe",
+      ],
+      "position": "some_theme_position",
+      "rules": Object {
+        "item": Array [
+          Object {
+            "type": "post",
+          },
+          Object {
+            "type": "page",
+          },
+        ],
+      },
+    },
+  ],
+}
+`;
+
+exports[`formats › preSaveFormat works as expected 1`] = `
+Object {
+  "ads": Object {
+    "fills": Array [
+      Object {
+        "height": "600",
+        "name": "ad_1",
+        "slot": "/12345678/roba_doble",
+        "type": "doubleclick",
+        "width": "300",
+      },
+      Object {
+        "height": "250",
+        "name": "ad_3",
+        "slot": "/12345678/ad_roba",
+        "type": "doubleclick",
+        "width": "300",
+      },
+    ],
+  },
+  "slots": Array [
+    Object {
+      "names": Array [
+        "iframe",
+      ],
+      "position": "some_theme_position",
+      "rules": Object {
+        "item": Array [
+          Object {
+            "type": "post",
+          },
+          Object {
+            "type": "page",
+          },
+        ],
+      },
+    },
+    Object {
+      "names": Array [
+        "ad_1",
+      ],
+      "position": "some_theme_position",
+      "rules": Object {
+        "item": Array [
+          Object {
+            "type": "post",
+          },
+          Object {
+            "type": "page",
+          },
+        ],
+      },
+    },
+    Object {
+      "names": Array [
+        "ad_1",
+      ],
+      "position": "some_theme_position",
+      "rules": Object {
+        "item": Array [
+          Object {
+            "type": "media",
+          },
+        ],
+      },
+    },
+    Object {
+      "names": Array [
+        "ad_3",
+      ],
+      "position": "some_theme_position",
+      "rules": Object {
+        "item": Array [
+          Object {
+            "type": "post",
+          },
+          Object {
+            "type": "page",
+          },
+        ],
+      },
+    },
+  ],
+}
+`;
