@@ -18,11 +18,6 @@ class MyApp extends App {
             content="width=device-width, initial-scale=1.0"
           />
         </Head>
-        <style jsx global>{`
-          body {
-            font-family: sans-serif;
-          }
-        `}</style>
       </Container>
     );
   }
