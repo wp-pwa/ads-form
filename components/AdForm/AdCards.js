@@ -4,7 +4,7 @@ import { SortableContainer } from 'react-sortable-hoc';
 
 import AdCard from './AdCard';
 
-const SortableList = SortableContainer(({ fields, initialValues }) => (
+const SortableList = SortableContainer(({ fields, initialValues, form }) => (
   <span>
     {fields.map((member, index) => (
       <AdCard
@@ -13,6 +13,7 @@ const SortableList = SortableContainer(({ fields, initialValues }) => (
         remove={() => fields.remove(index)}
         index={index}
         initialValues={initialValues}
+        form={form}
       />
     ))}
   </span>
@@ -24,6 +25,7 @@ class SortableAdCards extends Component {
       move: PropTypes.func.isRequired,
     }).isRequired,
     initialValues: PropTypes.shape({}).isRequired,
+    form: PropTypes.shape({}).isRequired,
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
@@ -31,13 +33,14 @@ class SortableAdCards extends Component {
   };
 
   render() {
-    const { fields, initialValues } = this.props;
+    const { fields, initialValues, form } = this.props;
     return (
       <SortableList
         fields={fields}
         initialValues={initialValues}
         onSortEnd={this.onSortEnd}
         useDragHandle
+        form={form}
       />
     );
   }

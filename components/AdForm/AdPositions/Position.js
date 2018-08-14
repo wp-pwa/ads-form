@@ -9,13 +9,16 @@ import SelectInput from '../../SelectInput';
 import TextInput from '../../TextInput';
 import { Row, Label, Select } from '../../styled';
 import { toArray } from '../formats';
-import types from '../types';
+import { types, positions } from '../types';
 
 class Position extends Component {
   static propTypes = {
     member: PropTypes.string.isRequired,
     initialValues: PropTypes.shape({}).isRequired,
     remove: PropTypes.func.isRequired,
+    form: PropTypes.shape({
+      change: PropTypes.func.isRequired,
+    }).isRequired,
   };
 
   constructor(props) {
@@ -31,7 +34,17 @@ class Position extends Component {
     this.state = { type, customPostTypes };
   }
 
-  setType = value => this.setState({ type: value });
+  setType = value => {
+    if (value !== '' && this.state.type !== value)
+      this.setState({ type: value }, () => {
+        const newPosition =
+          positions[value !== 'customPostType' ? value : 'single'][0];
+        const initialValue =
+          value !== 'customPostType' ? types[value].items[0] : '';
+        this.props.form.change(`${this.props.member}.position`, newPosition);
+        this.props.form.change(`${this.props.member}.items`, [initialValue]);
+      });
+  };
   setCustomPostTypes = value => this.setState({ customPostTypes: value });
 
   renderItemSelector = () => {

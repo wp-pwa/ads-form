@@ -65,7 +65,7 @@ class AdForm extends Component {
               this.save(values, updateSetting);
             }}
             mutators={arrayMutators}
-            render={({ handleSubmit, pristine, invalid }) => (
+            render={({ handleSubmit, pristine, invalid, form }) => (
               <div>
                 <Title>Ad Configuration</Title>
                 <StyledForm onSubmit={handleSubmit}>
@@ -91,6 +91,7 @@ class AdForm extends Component {
                         <AdCards
                           fields={fields}
                           initialValues={initialValues}
+                          form={form}
                         />
                       </div>
                     )}
