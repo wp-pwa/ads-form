@@ -35,12 +35,14 @@ class Position extends Component {
   }
 
   setType = value => {
-    if (value !== '')
+    if (value !== '' && this.state.type !== value)
       this.setState({ type: value }, () => {
         const newPosition =
           positions[value !== 'customPostType' ? value : 'single'][0];
+        const initialValue =
+          value !== 'customPostType' ? types[value].items[0] : '';
         this.props.form.change(`${this.props.member}.position`, newPosition);
-        this.props.form.change(`${this.props.member}.items`, []);
+        this.props.form.change(`${this.props.member}.items`, [initialValue]);
       });
   };
   setCustomPostTypes = value => this.setState({ customPostTypes: value });
