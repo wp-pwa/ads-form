@@ -10,7 +10,7 @@ type User @model {
   email: String! @isUnique
   password: String!
   role: Role! @defaultValue(value: USER)
-  sites: [Site!]! @relation(name: "Owner")
+  sites: [Site!]! @relation(name: "UserOnSite")
 }
 
 enum Role {
@@ -22,7 +22,7 @@ type Site @model {
   id: ID! @isUnique
   siteId: String!
   url: String!
-  owner: User @relation(name: "Owner")
+  users: [User!]! @relation(name: "UserOnSite")
   settings: [Setting!]! @relation(name: "SiteOnSetting")
 }
 
