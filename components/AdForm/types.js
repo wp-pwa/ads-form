@@ -14,7 +14,7 @@ export const positions = {
   single: [
     // 'before item 1',
     'before content',
-    ...range(1, 11).map(
+    ...range(1, 17).map(
       n => `after ${MIN_LIMIT_VALUE * n} characters in content`,
     ),
     'after content',
