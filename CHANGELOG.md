@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/frontity/ads-form/compare/v1.1.0...v1.1.1) (2018-08-16)
+
+
+### Bug Fixes
+
+* **formats:** dont delete ads.settings ([184a771](https://github.com/frontity/ads-form/commit/184a771))
+
 # [1.1.0](https://github.com/frontity/ads-form/compare/v1.0.1...v1.1.0) (2018-08-16)
 
 
