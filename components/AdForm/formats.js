@@ -81,7 +81,10 @@ export const preSaveFormat = (values, originalValues) => {
   );
 
   return {
-    ads: { fills: ads.fills.map(({ positions, ...rest }) => ({ ...rest })) },
+    ads: {
+      fills: ads.fills.map(({ positions, ...rest }) => ({ ...rest })),
+      settings: __ads.settings || {},
+    },
     slots: slots.concat(adSlots),
     ...others,
   };
