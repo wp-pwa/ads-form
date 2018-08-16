@@ -1,3 +1,17 @@
+# [1.1.0](https://github.com/frontity/ads-form/compare/v1.0.1...v1.1.0) (2018-08-16)
+
+
+### Bug Fixes
+
+* **index:** fix users not getting their sites now that users are arrays ([3e398a7](https://github.com/frontity/ads-form/commit/3e398a7))
+* **types:** add up to 30 posts ([9d63b2b](https://github.com/frontity/ads-form/commit/9d63b2b))
+* **validators:** zero should be an allowed number ([3ee7fab](https://github.com/frontity/ads-form/commit/3ee7fab))
+
+
+### Features
+
+* **graphql:** users are now an array in graphql ([be67e1d](https://github.com/frontity/ads-form/commit/be67e1d))
+
 ## [1.0.1](https://github.com/frontity/ads-form/compare/v1.0.0...v1.0.1) (2018-08-16)
 
 
