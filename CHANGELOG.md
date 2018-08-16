@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/frontity/ads-form/compare/v1.0.0...v1.0.1) (2018-08-16)
+
+
+### Bug Fixes
+
+* **types:** add more content positions ([9174145](https://github.com/frontity/ads-form/commit/9174145))
+
 # 1.0.0 (2018-08-14)
 
 
