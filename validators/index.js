@@ -1,4 +1,5 @@
-export const required = value => (value ? undefined : 'Required');
+export const required = value =>
+  typeof value !== 'undefined' ? undefined : 'Required';
 
 export const mustBeNumber = value =>
   Number.isNaN(Number(value)) ? 'Must be a number' : undefined;
