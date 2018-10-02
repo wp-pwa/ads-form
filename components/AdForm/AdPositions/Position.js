@@ -3,11 +3,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { OnChange } from 'react-final-form-listeners';
-import { Field } from 'react-final-form';
+import { Field } from 'react-final-form-html5-validation';
 import { get } from 'lodash';
 import SelectInput from '../../SelectInput';
 import TextInput from '../../TextInput';
-import { Row, Label, Select } from '../../styled';
 import { toArray } from '../formats';
 import { types, positions } from '../types';
 
@@ -54,15 +53,15 @@ class Position extends Component {
     return items ? (
       <ItemSelector>
         {items.map(value => (
-          <CheckBoxLabel key={value}>
+          <div>
             <Field
               name={`${member}.items`}
               component="input"
               type="checkbox"
               value={value}
             />
-            {value}
-          </CheckBoxLabel>
+            <label key={value}>{value}</label>
+          </div>
         ))}
       </ItemSelector>
     ) : (
@@ -92,26 +91,28 @@ class Position extends Component {
   render() {
     const { member, remove } = this.props;
     return (
-      <div>
-        <Row>
-          <Label>type</Label>
-          <Field name={`${member}.type`}>
-            {({ input }) => (
-              <Select {...input}>
-                <option value="list">list</option>
-                <option value="single">single</option>
-                <option value="media">media</option>
-                <option value="customPostType">custom post type</option>
-              </Select>
-            )}
-          </Field>
-        </Row>
-        {this.renderItemSelector()}
-        <OnChange name={`${member}.type`}>{this.setType}</OnChange>
-        <PositionSelector>
-          {this.renderPositionSelector()}
-          <Button onClick={remove}>{`${'❌'}`}</Button>
-        </PositionSelector>
+      <div className="card fluid shadowed">
+        <div className="row section">
+          <LabelContainer className="col-sm-3">
+            <label>page type</label>
+          </LabelContainer>
+          <div className="col-sm">
+            <Field component="select" name={`${member}.type`}>
+              <option value="list">list</option>
+              <option value="single">single</option>
+              <option value="media">media</option>
+              <option value="customPostType">custom post type</option>
+            </Field>
+            {this.renderItemSelector()}
+            <OnChange name={`${member}.type`}>{this.setType}</OnChange>
+          </div>
+        </div>
+        {this.renderPositionSelector()}
+        <AlignRight>
+          <button className="secondary small" onClick={remove}>
+            delete
+          </button>
+        </AlignRight>
       </div>
     );
   }
@@ -119,41 +120,24 @@ class Position extends Component {
 
 export default Position;
 
-const CheckBoxLabel = styled.label`
-  margin-left: 8px;
+const AlignRight = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
-const Button = styled.div`
-  margin: 5px;
-  height: 32px;
-  width: 32px;
-  line-height: 32px;
-  text-align: center;
-  align-self: center;
-  &:hover {
-    cursor: pointer;
-  }
+const LabelContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const ItemSelector = styled.div`
-  padding-left: 110px;
   display: flex;
-  flex: 1;
-  line-height: 2em;
-  box-sizing: border-box;
-  align-items: stretch;
-  justify-content: flex-start;
-  & > * {
-    margin-left: 15px;
-  }
-`;
-
-const PositionSelector = styled.div`
-  position: relative;
-  display: flex;
-  flex: 1;
-  line-height: 2em;
-  box-sizing: border-box;
-  align-items: stretch;
+  align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
+
+  & > div {
+    display: flex;
+    align-items: center;
+  }
 `;

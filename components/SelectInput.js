@@ -13,7 +13,7 @@ const SelectInput = ({ name, label, children, ...rest }) => (
     </div>
     <div className="col-sm">
       <Field name={name} {...rest}>
-        {({ input }) => <select {...input}>{children}</select>}
+        {({ input }) => <Select {...input}>{children}</Select>}
       </Field>
     </div>
   </div>
@@ -31,4 +31,8 @@ const LabelContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+`;
+
+const Select = styled.select`
+  width: 85%;
 `;

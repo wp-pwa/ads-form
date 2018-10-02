@@ -7,7 +7,7 @@ import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { get } from 'lodash';
 import { Field } from 'react-final-form-html5-validation';
 import AdOptions from './AdOptions';
-// import AdPositions from './AdPositions';
+import AdPositions from './AdPositions';
 import SelectInput from '../SelectInput';
 import DragIcon from '../icons/DragIcon';
 import SettingsIcon from '../icons/SettingsIcon';
@@ -25,7 +25,7 @@ class AdCard extends Component {
     member: PropTypes.string.isRequired,
     remove: PropTypes.func.isRequired,
     initialValues: PropTypes.shape({}).isRequired,
-    // form: PropTypes.shape({}).isRequired,
+    form: PropTypes.shape({}).isRequired,
   };
 
   state = {
@@ -42,7 +42,7 @@ class AdCard extends Component {
   updateType = value => value && this.setState({ type: value });
 
   render() {
-    const { member, remove /* , initialValues, form */ } = this.props;
+    const { member, remove, initialValues, form } = this.props;
     const { isOpen, type } = this.state;
     const iconSize = 24;
     return (
@@ -88,12 +88,12 @@ class AdCard extends Component {
             </button>
           </AlignRight>
           <hr />
-          {/* <AdPositions
+          <AdPositions
             member={member}
             initialValues={initialValues}
             type={type}
             form={form}
-          /> */}
+          />
         </Content>
       </div>
     );
