@@ -7,6 +7,7 @@ import AdForm from '../components/AdForm';
 const Site = ({ site, settingId, initialValues }) =>
   site ? (
     <Container>
+      <h1>Ad Configuration</h1>
       <Header>
         <Url>{site.url}</Url>
         <SiteId>{site.siteId}</SiteId>
