@@ -5,7 +5,7 @@ import { SortableContainer } from 'react-sortable-hoc';
 import AdCard from './AdCard';
 
 const SortableList = SortableContainer(({ fields, initialValues, form }) => (
-  <span>
+  <div>
     {fields.map((member, index) => (
       <AdCard
         key={member}
@@ -16,7 +16,7 @@ const SortableList = SortableContainer(({ fields, initialValues, form }) => (
         form={form}
       />
     ))}
-  </span>
+  </div>
 ));
 
 class SortableAdCards extends Component {
