@@ -37,6 +37,12 @@ functions:
     handler:
       code: src/email-password/loggedInUser.ts
 
+  isUserInSite:
+    type: resolver
+    schema: src/site/isUserInSite.graphql
+    handler:
+      code: src/site/isUserInSite.js
+
   initSettings:
     type: operationAfter
     operation: Site.create
@@ -51,6 +57,11 @@ functions:
 # https://www.graph.cool/docs/reference/auth/authorization/overview-iegoo0heez
 permissions:
   - operation: "*"
+    authenticated: true
+  
+  - operation: Site.read
+    authenticated: true
+    query: src/site/isUserInSiteQuery.graphql
 
 
 # Your root tokens used for functions to get full access to the API

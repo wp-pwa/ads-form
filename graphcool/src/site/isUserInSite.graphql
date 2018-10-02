@@ -1,0 +1,7 @@
+type isUserInSitePayload {
+  value: Boolean!
+}
+
+extend type Query {
+  isUserInSite(id: ID!, userId: ID!): isUserInSitePayload
+}
