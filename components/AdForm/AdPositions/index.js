@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'react-final-form-arrays';
 import Position from './Position';
-import { ButtonDefault } from '../../Buttons';
 import { types, positions } from '../types';
 
 const AdPositions = ({ member, initialValues, form }) => (
@@ -11,17 +10,17 @@ const AdPositions = ({ member, initialValues, form }) => (
     {({ fields }) => (
       <>
         <div>
-          <ButtonDefault
+          <input
             type="button"
+            value="Add Position"
+            className="primary large"
             onClick={() => {
               fields.push({
                 items: [types.list.items[0]],
                 position: positions.list[0],
               });
             }}
-          >
-            Add Position
-          </ButtonDefault>
+          />
         </div>
         {fields &&
           fields.map((name, index) => (
