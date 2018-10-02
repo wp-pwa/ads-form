@@ -9,7 +9,6 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import { postLoadFormat, preSaveFormat } from './formats';
 import AdCards from './AdCards';
-import { ButtonDefault, ButtonPrimary } from '../Buttons';
 import { SMART_ADSERVER } from '../../constants';
 
 const UPDATE_SETTING = gql`
@@ -67,36 +66,37 @@ class AdForm extends Component {
             mutators={arrayMutators}
             render={({ handleSubmit, pristine, invalid, form }) => (
               <div>
-                <Title>Ad Configuration</Title>
-                <StyledForm onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                   <FieldArray name="ads.fills">
                     {({ fields }) => (
                       <div>
-                        <Buttons>
-                          <ButtonDefault
-                            type="button"
-                            onClick={() =>
-                              fields.push({ type: SMART_ADSERVER })
-                            }
-                          >
-                            Create Ad
-                          </ButtonDefault>
-                          <ButtonPrimary
-                            type="submit"
-                            disabled={pristine || invalid}
-                          >
-                            Submit
-                          </ButtonPrimary>
-                        </Buttons>
                         <AdCards
                           fields={fields}
                           initialValues={initialValues}
                           form={form}
                         />
+                        <AlignCenter>
+                          <input
+                            type="button"
+                            className="small"
+                            onClick={() =>
+                              fields.push({ type: SMART_ADSERVER })
+                            }
+                            value="Create Ad"
+                          />
+                        </AlignCenter>
                       </div>
                     )}
                   </FieldArray>
-                </StyledForm>
+                  <AlignRight>
+                    <input
+                      type="submit"
+                      disabled={pristine || invalid}
+                      className="primary large"
+                      value="Save"
+                    />
+                  </AlignRight>
+                </form>
               </div>
             )}
           />
@@ -108,31 +108,12 @@ class AdForm extends Component {
 
 export default AdForm;
 
-const Title = styled.div`
-  box-sizing: border-box;
-  width: 100%;
+const AlignCenter = styled.div`
   display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  font-weight: 700;
-  font-size: 1.8rem;
-  line-height: 2.2rem;
-  padding: 0px 15px;
-  margin: 10px 0px;
+  justify-content: center;
 `;
 
-const StyledForm = styled.form`
-  max-width: 512px;
-  background-color: #f3f3f3;
-  border: 1px solid #efefef;
-  border-radius: 3px;
-  outline: none;
-`;
-
-const Buttons = styled.div`
-  background: white;
-  padding: 8px;
+const AlignRight = styled.div`
   display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #efefef;
+  justify-content: flex-end;
 `;
