@@ -1,3 +1,16 @@
+## [1.1.3](https://github.com/frontity/ads-form/compare/v1.1.2...v1.1.3) (2018-10-03)
+
+
+### Bug Fixes
+
+* **ad-card:** add tooltips ([95965f6](https://github.com/frontity/ads-form/commit/95965f6))
+* **ad-card:** change name placeholder ([158dba3](https://github.com/frontity/ads-form/commit/158dba3))
+* **components:** prevent submit if a button is clicked ([bc2acb4](https://github.com/frontity/ads-form/commit/bc2acb4))
+* **npm:** update dependencies ([6bcf55a](https://github.com/frontity/ads-form/commit/6bcf55a))
+* **position:** fix styles and add placeholder ([adf9248](https://github.com/frontity/ads-form/commit/adf9248))
+* **signin:** center signin form ([e37ff0a](https://github.com/frontity/ads-form/commit/e37ff0a))
+* **site:** prevent submit if 'go back' button is clicked ([63b24c3](https://github.com/frontity/ads-form/commit/63b24c3))
+
 ## [1.1.2](https://github.com/frontity/ads-form/compare/v1.1.1...v1.1.2) (2018-10-03)
 
 
