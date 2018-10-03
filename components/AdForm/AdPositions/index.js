@@ -1,28 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { FieldArray } from 'react-final-form-arrays';
 import Position from './Position';
-import { ButtonDefault } from '../../Buttons';
 import { types, positions } from '../types';
 
 const AdPositions = ({ member, initialValues, form }) => (
   <FieldArray name={`${member}.positions`}>
     {({ fields }) => (
       <>
-        <div>
-          <ButtonDefault
-            type="button"
-            onClick={() => {
-              fields.push({
-                items: [types.list.items[0]],
-                position: positions.list[0],
-              });
-            }}
-          >
-            Add Position
-          </ButtonDefault>
-        </div>
+        <Title>Positions</Title>
         {fields &&
           fields.map((name, index) => (
             <Position
@@ -33,6 +21,19 @@ const AdPositions = ({ member, initialValues, form }) => (
               form={form}
             />
           ))}
+        <AlignCenter>
+          <input
+            type="button"
+            value="Add Position"
+            className="primary small"
+            onClick={() => {
+              fields.push({
+                items: [types.list.items[0]],
+                position: positions.list[0],
+              });
+            }}
+          />
+        </AlignCenter>
       </>
     )}
   </FieldArray>
@@ -45,3 +46,13 @@ AdPositions.propTypes = {
 };
 
 export default AdPositions;
+
+const AlignCenter = styled.div`
+  padding-top: 16px;
+  display: flex;
+  justify-content: center;
+`;
+
+const Title = styled.h5`
+  font-weight: 700;
+`;

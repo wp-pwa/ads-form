@@ -5,7 +5,7 @@ import { SortableContainer } from 'react-sortable-hoc';
 import AdCard from './AdCard';
 
 const SortableList = SortableContainer(({ fields, initialValues, form }) => (
-  <span>
+  <div>
     {fields.map((member, index) => (
       <AdCard
         key={member}
@@ -16,7 +16,7 @@ const SortableList = SortableContainer(({ fields, initialValues, form }) => (
         form={form}
       />
     ))}
-  </span>
+  </div>
 ));
 
 class SortableAdCards extends Component {
@@ -29,7 +29,12 @@ class SortableAdCards extends Component {
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    this.props.fields.move(oldIndex, newIndex);
+    try {
+      this.props.fields.move(oldIndex, newIndex);
+    } catch (error) {
+      // hide errors from a bug in 'react-final-form-arrays'
+      // See https://github.com/final-form/react-final-form-arrays/issues/39
+    }
   };
 
   render() {

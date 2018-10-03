@@ -1,16 +1,22 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { Field } from 'react-final-form';
-import { Row, Label, Select } from './styled';
 
 const SelectInput = ({ name, label, children, ...rest }) => (
-  <Row>
-    <Label>{label}</Label>
-    <Field name={name} {...rest}>
-      {({ input }) => <Select {...input}>{children}</Select>}
-    </Field>
-  </Row>
+  <div className="row responsive-label">
+    <div className="col-sm-3">
+      <LabelContainer>
+        <label>{label}</label>
+      </LabelContainer>
+    </div>
+    <div className="col-sm">
+      <Field name={name} {...rest}>
+        {({ input }) => <Select {...input}>{children}</Select>}
+      </Field>
+    </div>
+  </div>
 );
 
 SelectInput.propTypes = {
@@ -20,3 +26,14 @@ SelectInput.propTypes = {
 };
 
 export default SelectInput;
+
+const LabelContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-weight: 700;
+`;
+
+const Select = styled.select`
+  width: 85%;
+`;

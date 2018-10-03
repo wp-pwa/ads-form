@@ -1,6 +1,6 @@
 {
   "name": "frontity-ads-form",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": "",
   "license": "Apache-2.0",
   "scripts": {
@@ -30,6 +30,7 @@
     "react-dom": "16.4.1",
     "react-final-form": "^3.6.5",
     "react-final-form-arrays": "^1.0.6",
+    "react-final-form-html5-validation": "^1.0.2",
     "react-final-form-listeners": "^1.0.1",
     "react-sortable-hoc": "^0.8.3",
     "styled-components": "^3.3.3"
@@ -55,7 +56,7 @@
     "eslint-plugin-react": "^7.9.1",
     "husky": "^1.0.0-rc.9",
     "jest": "^23.1.0",
-    "lint-staged": "^7.2.0",
+    "lint-staged": "^8.0.0-beta.2",
     "prettier": "^1.13.5",
     "semantic-release": "^15.6.0",
     "travis-deploy-once": "^5.0.0"

@@ -18,6 +18,10 @@ export default class MyDocument extends Document {
         <Head>
           <title>My page</title>
           {this.props.styleTags}
+          <link
+            rel="stylesheet"
+            href="https://gitcdn.link/repo/Chalarangelo/mini.css/master/dist/mini-default.css"
+          />
         </Head>
         <body>
           <Main />
