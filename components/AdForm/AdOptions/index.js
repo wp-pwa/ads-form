@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import SmartAd from './SmartAd';
 import AdSense from './AdSense';
 import DoubleClick from './DoubleClick';
@@ -20,7 +21,11 @@ const componentMap = {
 
 const AdOptions = ({ member, type }) => {
   const Options = componentMap[type];
-  return Options ? <Options member={member} /> : null;
+  return Options ? (
+    <Container>
+      <Options member={member} />
+    </Container>
+  ) : null;
 };
 
 AdOptions.propTypes = {
@@ -30,3 +35,8 @@ AdOptions.propTypes = {
 };
 
 export default AdOptions;
+
+const Container = styled.div`
+  padding-top: 16px;
+  padding-left: 50px;
+`;

@@ -2,15 +2,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Field } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { get } from 'lodash';
+import { Field } from 'react-final-form-html5-validation';
 import AdOptions from './AdOptions';
 import AdPositions from './AdPositions';
-import TextInput from '../TextInput';
-import { Row, Label, Input, Select } from '../styled';
-import { required } from '../../validators';
+import SelectInput from '../SelectInput';
+import DragIcon from '../icons/DragIcon';
+import SettingsIcon from '../icons/SettingsIcon';
+import CloseIcon from '../icons/CloseIcon';
+
 import {
   SMART_ADSERVER,
   AD_SENSE,
@@ -37,41 +39,53 @@ class AdCard extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   };
 
+  updateType = value => value && this.setState({ type: value });
+
   render() {
-    const { member, initialValues, remove, form } = this.props;
+    const { member, remove, initialValues, form } = this.props;
     const { isOpen, type } = this.state;
+    const iconSize = 24;
     return (
-      <Card>
-        <Title>
-          <DragHandle>{`${'↕️'}`}</DragHandle>
-          <Button onClick={this.toggleContent}>{isOpen ? '🔼' : '🔽'}</Button>
-          <TextInput
-            name={`${member}.name`}
-            component={Input}
-            type="text"
-            placeholder="Name"
-            validate={required}
-          />
-          <Button onClick={remove}>{`${'❌'}`}</Button>
-        </Title>
-        <Content isOpen={isOpen}>
-          <Row>
-            <Label>Type</Label>
-            <Field name={`${member}.type`}>
-              {({ input }) => (
-                <Select {...input}>
-                  <option value={SMART_ADSERVER}>Smart Adserver</option>
-                  <option value={AD_SENSE}>AdSense</option>
-                  <option value={DOUBLE_CLICK}>DoubleClick</option>
-                  <option value={SUN_MEDIA}>SunMedia</option>
-                </Select>
+      <div className="card fluid">
+        <div className="row section">
+          <DragHandle className="col-sm-1">
+            <Icon>
+              <DragIcon size={iconSize} />
+            </Icon>
+          </DragHandle>
+          <Name className="col-sm-10">
+            <Field
+              component="input"
+              name={`${member}.name`}
+              type="text"
+              placeholder="Name"
+              required
+            />
+          </Name>
+          <div className="col-sm-1">
+            <Icon onClick={this.toggleContent}>
+              {isOpen ? (
+                <CloseIcon size={iconSize} />
+              ) : (
+                <SettingsIcon size={iconSize} />
               )}
-            </Field>
-          </Row>
-          <OnChange name={`${member}.type`}>
-            {value => value && this.setState({ type: value })}
-          </OnChange>
+            </Icon>
+          </div>
+        </div>
+        <Content isOpen={isOpen} className="section">
+          <SelectInput name={`${member}.type`} label="Ad type">
+            <option value={SMART_ADSERVER}>Smart Adserver</option>
+            <option value={AD_SENSE}>AdSense</option>
+            <option value={DOUBLE_CLICK}>DoubleClick</option>
+            <option value={SUN_MEDIA}>SunMedia</option>
+          </SelectInput>
+          <OnChange name={`${member}.type`}>{this.updateType}</OnChange>
           <AdOptions member={member} type={type} />
+          <BtnContainer>
+            <button className="secondary small" onClick={remove}>
+              delete
+            </button>
+          </BtnContainer>
           <hr />
           <AdPositions
             member={member}
@@ -80,52 +94,39 @@ class AdCard extends Component {
             form={form}
           />
         </Content>
-      </Card>
+      </div>
     );
   }
 }
 
 export default SortableElement(AdCard);
 
-const Card = styled.div`
-  width: 100%;
-  padding: 8px 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #efefef;
-  box-sizing: border-box;
-`;
-
-const DragHandle = SortableHandle(styled.span`
-  margin: 5px;
-  height: 32px;
-  width: 32px;
-  line-height: 32px;
-  text-align: center;
-  align-self: center;
-  &:hover {
-    cursor: move;
-  }
-`);
-
-const Title = styled.div`
-  display: flex;
-  line-height: 2em;
-  align-items: stretch;
-  justify-content: space-between;
-`;
+const DragHandle = SortableHandle('div');
 
 const Content = styled.div`
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
 `;
 
-const Button = styled.div`
-  margin: 5px;
-  height: 32px;
-  width: 32px;
-  line-height: 32px;
-  text-align: center;
-  align-self: center;
-  &:hover {
-    cursor: pointer;
+const Name = styled.div`
+  input {
+    width: 85%;
+  }
+`;
+
+const Icon = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+
+  button {
+    font-size: 12px;
   }
 `;
