@@ -29,7 +29,12 @@ class SortableAdCards extends Component {
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    this.props.fields.move(oldIndex, newIndex);
+    try {
+      this.props.fields.move(oldIndex, newIndex);
+    } catch (error) {
+      // hide errors from a bug in 'react-final-form-arrays'
+      // See https://github.com/final-form/react-final-form-arrays/issues/39
+    }
   };
 
   render() {
