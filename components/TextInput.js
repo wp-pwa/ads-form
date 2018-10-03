@@ -9,9 +9,9 @@ const TextInput = ({ name, label, ...rest }) => (
     <LabelContainer className="col-sm-3">
       <label>{label}</label>
     </LabelContainer>
-    <div className="col-sm">
+    <InputContainer className="col-sm">
       <Field component="input" type="text" name={name} {...rest} />
-    </div>
+    </InputContainer>
   </div>
 );
 
@@ -26,4 +26,11 @@ const LabelContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  font-weight: 700;
+`;
+
+const InputContainer = styled.div`
+  input {
+    font-size: 12px;
+  }
 `;

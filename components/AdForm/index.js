@@ -109,6 +109,7 @@ class AdForm extends Component {
 export default AdForm;
 
 const AlignCenter = styled.div`
+  padding-top: 16px;
   display: flex;
   justify-content: center;
 `;

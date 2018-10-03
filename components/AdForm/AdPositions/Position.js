@@ -60,7 +60,7 @@ class Position extends Component {
               type="checkbox"
               value={value}
             />
-            <label key={value}>{value}</label>
+            <CheckboxLabel key={value}>{value}</CheckboxLabel>
           </div>
         ))}
       </ItemSelector>
@@ -78,13 +78,15 @@ class Position extends Component {
     const { member } = this.props;
     const { type } = this.state;
     return (
-      <SelectInput name={`${member}.position`} label="position">
-        {types[type].positions.map(position => (
-          <option key={position} value={position}>
-            {position}
-          </option>
-        ))}
-      </SelectInput>
+      <PositionSelector>
+        <SelectInput name={`${member}.position`} label="position">
+          {types[type].positions.map(position => (
+            <option key={position} value={position}>
+              {position}
+            </option>
+          ))}
+        </SelectInput>
+      </PositionSelector>
     );
   };
 
@@ -92,27 +94,29 @@ class Position extends Component {
     const { member, remove } = this.props;
     return (
       <div className="card fluid shadowed">
-        <div className="row section">
-          <LabelContainer className="col-sm-3">
-            <label>page type</label>
-          </LabelContainer>
-          <div className="col-sm">
-            <Field component="select" name={`${member}.type`}>
-              <option value="list">list</option>
-              <option value="single">single</option>
-              <option value="media">media</option>
-              <option value="customPostType">custom post type</option>
-            </Field>
-            {this.renderItemSelector()}
-            <OnChange name={`${member}.type`}>{this.setType}</OnChange>
+        <div className="section">
+          <div className="row">
+            <LabelContainer className="col-sm-3">
+              <label>page type</label>
+            </LabelContainer>
+            <div className="col-sm">
+              <Field component="select" name={`${member}.type`}>
+                <option value="list">list</option>
+                <option value="single">single</option>
+                <option value="media">media</option>
+                <option value="customPostType">custom post type</option>
+              </Field>
+              {this.renderItemSelector()}
+              <OnChange name={`${member}.type`}>{this.setType}</OnChange>
+            </div>
           </div>
+          {this.renderPositionSelector()}
+          <BtnContainer>
+            <button className="secondary small" onClick={remove}>
+              delete
+            </button>
+          </BtnContainer>
         </div>
-        {this.renderPositionSelector()}
-        <AlignRight>
-          <button className="secondary small" onClick={remove}>
-            delete
-          </button>
-        </AlignRight>
       </div>
     );
   }
@@ -120,14 +124,24 @@ class Position extends Component {
 
 export default Position;
 
-const AlignRight = styled.div`
+const BtnContainer = styled.div`
+  margin-top: 16px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+
+  button {
+    font-size: 12px;
+  }
 `;
 
 const LabelContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  font-weight: 700;
+`;
+
+const CheckboxLabel = styled.label`
+  font-size: 12px;
 `;
 
 const ItemSelector = styled.div`
@@ -140,4 +154,8 @@ const ItemSelector = styled.div`
     display: flex;
     align-items: center;
   }
+`;
+
+const PositionSelector = styled.div`
+  padding-top: 8px;
 `;

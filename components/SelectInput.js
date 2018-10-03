@@ -31,6 +31,7 @@ const LabelContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  font-weight: 700;
 `;
 
 const Select = styled.select`

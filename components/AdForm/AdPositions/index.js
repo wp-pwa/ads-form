@@ -10,7 +10,7 @@ const AdPositions = ({ member, initialValues, form }) => (
   <FieldArray name={`${member}.positions`}>
     {({ fields }) => (
       <>
-        <h5>Positions</h5>
+        <Title>Positions</Title>
         {fields &&
           fields.map((name, index) => (
             <Position
@@ -48,6 +48,11 @@ AdPositions.propTypes = {
 export default AdPositions;
 
 const AlignCenter = styled.div`
+  padding-top: 16px;
   display: flex;
   justify-content: center;
+`;
+
+const Title = styled.h5`
+  font-weight: 700;
 `;

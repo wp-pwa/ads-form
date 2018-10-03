@@ -80,13 +80,12 @@ class AdCard extends Component {
             <option value={SUN_MEDIA}>SunMedia</option>
           </SelectInput>
           <OnChange name={`${member}.type`}>{this.updateType}</OnChange>
-          <hr />
           <AdOptions member={member} type={type} />
-          <AlignRight>
+          <BtnContainer>
             <button className="secondary small" onClick={remove}>
               delete
             </button>
-          </AlignRight>
+          </BtnContainer>
           <hr />
           <AdPositions
             member={member}
@@ -122,7 +121,12 @@ const Icon = styled.div`
   align-items: center;
 `;
 
-const AlignRight = styled.div`
+const BtnContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  padding-top: 16px;
+
+  button {
+    font-size: 12px;
+  }
 `;
