@@ -1,32 +1,45 @@
-import React from 'react'
-import Link from 'next/link'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from 'react';
+import Link from 'next/link';
+import styled from 'styled-components';
 
-import redirect from '../lib/redirect'
-import checkLoggedIn from '../lib/checkLoggedIn'
+import redirect from '../lib/redirect';
+import checkLoggedIn from '../lib/checkLoggedIn';
 
-import SigninBox from '../components/SigninBox'
+import SigninBox from '../components/SigninBox';
 
 export default class Signin extends React.Component {
-  static async getInitialProps (context) {
-    const { loggedInUser } = await checkLoggedIn(context.apolloClient)
+  static async getInitialProps(context) {
+    const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
     if (loggedInUser.user) {
       // Already signed in? No need to continue.
       // Throw them back to the main page
-      redirect(context, '/')
+      redirect(context, '/');
     }
 
-    return {}
+    return {};
   }
 
-  render () {
+  render() {
     return (
-      <React.Fragment>
+      <Container>
         {/* SigninBox handles all login logic. */}
         <SigninBox />
         <hr />
-        New? <Link prefetch href='/create-account'><a>Create account</a></Link>
-      </React.Fragment>
-    )
+        <p>
+          New?{' '}
+          <Link prefetch href="/create-account">
+            <a>Create account</a>
+          </Link>
+        </p>
+      </Container>
+    );
   }
-};
+}
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
