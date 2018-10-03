@@ -2,10 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '../../TextInput';
-import { required, mustBeNumber, composeValidators } from '../../../validators';
 import { toNumber } from '../formats';
-
-const requireNumber = composeValidators(required, mustBeNumber);
 
 const SunMedia = ({ member }) => (
   <>
@@ -13,20 +10,24 @@ const SunMedia = ({ member }) => (
       name={`${member}.src`}
       label="src"
       placeholder="https://platform.sunmedia.tv/integrations/00000.js"
-      validate={required}
+      required
     />
     <TextInput
       name={`${member}.width`}
       label="width"
       placeholder="300"
-      validate={requireNumber}
+      pattern="\d+"
+      patternMismatch="Must be a number"
+      required
       parse={toNumber}
     />
     <TextInput
       name={`${member}.height`}
       label="height"
       placeholder="250"
-      validate={requireNumber}
+      pattern="\d+"
+      patternMismatch="Must be a number"
+      required
       parse={toNumber}
     />
   </>

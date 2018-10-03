@@ -3,11 +3,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { OnChange } from 'react-final-form-listeners';
-import { Field } from 'react-final-form';
+import { Field } from 'react-final-form-html5-validation';
 import { get } from 'lodash';
 import SelectInput from '../../SelectInput';
 import TextInput from '../../TextInput';
-import { Row, Label, Select } from '../../styled';
 import { toArray } from '../formats';
 import { types, positions } from '../types';
 
@@ -54,15 +53,15 @@ class Position extends Component {
     return items ? (
       <ItemSelector>
         {items.map(value => (
-          <CheckBoxLabel key={value}>
+          <div key={value}>
             <Field
               name={`${member}.items`}
               component="input"
               type="checkbox"
               value={value}
             />
-            {value}
-          </CheckBoxLabel>
+            <CheckboxLabel key={value}>{value}</CheckboxLabel>
+          </div>
         ))}
       </ItemSelector>
     ) : (
@@ -79,39 +78,45 @@ class Position extends Component {
     const { member } = this.props;
     const { type } = this.state;
     return (
-      <SelectInput name={`${member}.position`} label="position">
-        {types[type].positions.map(position => (
-          <option key={position} value={position}>
-            {position}
-          </option>
-        ))}
-      </SelectInput>
+      <PositionSelector>
+        <SelectInput name={`${member}.position`} label="position">
+          {types[type].positions.map(position => (
+            <option key={position} value={position}>
+              {position}
+            </option>
+          ))}
+        </SelectInput>
+      </PositionSelector>
     );
   };
 
   render() {
     const { member, remove } = this.props;
     return (
-      <div>
-        <Row>
-          <Label>type</Label>
-          <Field name={`${member}.type`}>
-            {({ input }) => (
-              <Select {...input}>
+      <div className="card fluid shadowed">
+        <div className="section">
+          <div className="row">
+            <LabelContainer className="col-sm-3">
+              <label>page type</label>
+            </LabelContainer>
+            <div className="col-sm">
+              <Field component="select" name={`${member}.type`}>
                 <option value="list">list</option>
                 <option value="single">single</option>
                 <option value="media">media</option>
                 <option value="customPostType">custom post type</option>
-              </Select>
-            )}
-          </Field>
-        </Row>
-        {this.renderItemSelector()}
-        <OnChange name={`${member}.type`}>{this.setType}</OnChange>
-        <PositionSelector>
+              </Field>
+              {this.renderItemSelector()}
+              <OnChange name={`${member}.type`}>{this.setType}</OnChange>
+            </div>
+          </div>
           {this.renderPositionSelector()}
-          <Button onClick={remove}>{`${'❌'}`}</Button>
-        </PositionSelector>
+          <BtnContainer>
+            <button className="secondary small" onClick={remove}>
+              delete
+            </button>
+          </BtnContainer>
+        </div>
       </div>
     );
   }
@@ -119,41 +124,38 @@ class Position extends Component {
 
 export default Position;
 
-const CheckBoxLabel = styled.label`
-  margin-left: 8px;
-`;
+const BtnContainer = styled.div`
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
 
-const Button = styled.div`
-  margin: 5px;
-  height: 32px;
-  width: 32px;
-  line-height: 32px;
-  text-align: center;
-  align-self: center;
-  &:hover {
-    cursor: pointer;
+  button {
+    font-size: 12px;
   }
 `;
 
-const ItemSelector = styled.div`
-  padding-left: 110px;
+const LabelContainer = styled.div`
   display: flex;
-  flex: 1;
-  line-height: 2em;
+  justify-content: flex-end;
+  font-weight: 700;
+`;
+
+const CheckboxLabel = styled.label`
+  font-size: 12px;
+`;
+
+const ItemSelector = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   box-sizing: border-box;
-  align-items: stretch;
-  justify-content: flex-start;
-  & > * {
-    margin-left: 15px;
+
+  & > div {
+    display: flex;
+    align-items: center;
   }
 `;
 
 const PositionSelector = styled.div`
-  position: relative;
-  display: flex;
-  flex: 1;
-  line-height: 2em;
-  box-sizing: border-box;
-  align-items: stretch;
-  justify-content: space-between;
+  padding-top: 8px;
 `;
