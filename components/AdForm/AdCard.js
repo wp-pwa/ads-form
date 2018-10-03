@@ -82,7 +82,7 @@ class AdCard extends Component {
           <OnChange name={`${member}.type`}>{this.updateType}</OnChange>
           <AdOptions member={member} type={type} />
           <BtnContainer>
-            <button className="secondary small" onClick={remove}>
+            <button type="button" className="secondary small" onClick={remove}>
               delete
             </button>
           </BtnContainer>

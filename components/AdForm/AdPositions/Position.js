@@ -113,7 +113,7 @@ class Position extends Component {
           </div>
           {this.renderPositionSelector()}
           <BtnContainer>
-            <button className="secondary small" onClick={remove}>
+            <button type="button" className="secondary small" onClick={remove}>
               delete
             </button>
           </BtnContainer>
