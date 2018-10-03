@@ -58,7 +58,7 @@ class AdCard extends Component {
               component="input"
               name={`${member}.name`}
               type="text"
-              placeholder="Name"
+              placeholder="ad name"
               required
             />
           </Name>
