@@ -7,6 +7,9 @@ import AdForm from '../components/AdForm';
 const Site = ({ site, settingId, initialValues }) =>
   site ? (
     <Container>
+      <a href="/">
+        <button>Go back</button>
+      </a>
       <h1>Ad Configuration</h1>
       <Header>
         <Url>{site.url}</Url>
