@@ -6,7 +6,6 @@ import { OnChange } from 'react-final-form-listeners';
 import { Field } from 'react-final-form-html5-validation';
 import { get } from 'lodash';
 import SelectInput from '../../SelectInput';
-import TextInput from '../../TextInput';
 import { toArray } from '../formats';
 import { types, positions } from '../types';
 
@@ -65,11 +64,13 @@ class Position extends Component {
         ))}
       </ItemSelector>
     ) : (
-      <TextInput
-        label=" "
+      <Field
+        component="input"
+        type="text"
         name={`${member}.items`}
         value={customPostTypes}
         parse={toArray}
+        placeholder="new,product,..."
       />
     );
   };
@@ -112,7 +113,7 @@ class Position extends Component {
           </div>
           {this.renderPositionSelector()}
           <BtnContainer>
-            <button className="secondary small" onClick={remove}>
+            <button type="button" className="secondary small" onClick={remove}>
               delete
             </button>
           </BtnContainer>
@@ -147,12 +148,13 @@ const CheckboxLabel = styled.label`
 const ItemSelector = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   box-sizing: border-box;
 
   & > div {
     display: flex;
     align-items: center;
+    margin-right: 8px;
   }
 `;
 

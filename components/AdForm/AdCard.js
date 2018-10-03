@@ -49,7 +49,7 @@ class AdCard extends Component {
       <div className="card fluid">
         <div className="row section">
           <DragHandle className="col-sm-1">
-            <Icon>
+            <Icon title="drag and drop">
               <DragIcon size={iconSize} />
             </Icon>
           </DragHandle>
@@ -58,12 +58,12 @@ class AdCard extends Component {
               component="input"
               name={`${member}.name`}
               type="text"
-              placeholder="Name"
+              placeholder="ad name"
               required
             />
           </Name>
           <div className="col-sm-1">
-            <Icon onClick={this.toggleContent}>
+            <Icon title="config" onClick={this.toggleContent}>
               {isOpen ? (
                 <CloseIcon size={iconSize} />
               ) : (
@@ -82,7 +82,7 @@ class AdCard extends Component {
           <OnChange name={`${member}.type`}>{this.updateType}</OnChange>
           <AdOptions member={member} type={type} />
           <BtnContainer>
-            <button className="secondary small" onClick={remove}>
+            <button type="button" className="secondary small" onClick={remove}>
               delete
             </button>
           </BtnContainer>
