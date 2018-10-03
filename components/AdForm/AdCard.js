@@ -49,7 +49,7 @@ class AdCard extends Component {
       <div className="card fluid">
         <div className="row section">
           <DragHandle className="col-sm-1">
-            <Icon>
+            <Icon title="drag and drop">
               <DragIcon size={iconSize} />
             </Icon>
           </DragHandle>
@@ -63,7 +63,7 @@ class AdCard extends Component {
             />
           </Name>
           <div className="col-sm-1">
-            <Icon onClick={this.toggleContent}>
+            <Icon title="config" onClick={this.toggleContent}>
               {isOpen ? (
                 <CloseIcon size={iconSize} />
               ) : (
