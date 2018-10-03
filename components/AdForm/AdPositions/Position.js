@@ -53,7 +53,7 @@ class Position extends Component {
     return items ? (
       <ItemSelector>
         {items.map(value => (
-          <div>
+          <div key={value}>
             <Field
               name={`${member}.items`}
               component="input"
