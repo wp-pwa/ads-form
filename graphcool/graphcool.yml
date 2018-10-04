@@ -37,12 +37,6 @@ functions:
     handler:
       code: src/email-password/loggedInUser.ts
 
-  isUserInSite:
-    type: resolver
-    schema: src/site/isUserInSite.graphql
-    handler:
-      code: src/site/isUserInSite.js
-
   initSettings:
     type: operationAfter
     operation: Site.create
@@ -56,13 +50,28 @@ functions:
 # Read more here:
 # https://www.graph.cool/docs/reference/auth/authorization/overview-iegoo0heez
 permissions:
-  - operation: "*"
-    authenticated: true
-  
   - operation: Site.read
     authenticated: true
-    query: src/site/isUserInSiteQuery.graphql
+    query: src/site/isSiteOwner.graphql
 
+  - operation: Package.read
+    authenticated: true
+
+  - operation: Setting.read
+    authenticated: true
+    query: src/site/isSettingOwner.graphql
+
+  - operation: Setting.update
+    authenticated: true
+    query: src/site/isSettingOwner.graphql
+  
+  - operation: User.read
+    authenticated: true
+    query: src/site/isUser.graphql
+
+  - operation: User.update
+    authenticated: true
+    query: src/site/isUser.graphql
 
 # Your root tokens used for functions to get full access to the API
 # Read more here:

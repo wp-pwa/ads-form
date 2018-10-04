@@ -1,0 +1,10 @@
+query isUser($node_id: ID!, $user_id: ID!) {
+  SomeUserExists(
+    filter: {
+      OR: [
+        { id: $user_id, role: ADMIN }
+        { AND: [{ id: $node_id }, { id: $user_id }] }
+      ]
+    }
+  )
+}
