@@ -1,0 +1,10 @@
+query isSiteOwner($node_id: ID!, $user_id: ID!) {
+  SomeUserExists(
+    filter: {
+      OR: [
+        { id: $user_id, role: ADMIN }
+        { id: $user_id, sites_some: { id: $node_id } }
+      ]
+    }
+  )
+}
