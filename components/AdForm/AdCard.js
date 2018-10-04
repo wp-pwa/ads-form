@@ -73,7 +73,7 @@ class AdCard extends Component {
           </div>
         </div>
         <Content isOpen={isOpen} className="section">
-          <SelectInput name={`${member}.type`} label="Ad type">
+          <SelectInput name={`${member}.type`} label="Ad server">
             <option value={SMART_ADSERVER}>Smart Adserver</option>
             <option value={AD_SENSE}>AdSense</option>
             <option value={DOUBLE_CLICK}>DoubleClick</option>
