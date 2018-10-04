@@ -7,7 +7,7 @@ import { Field } from 'react-final-form-html5-validation';
 import { get } from 'lodash';
 import SelectInput from '../../SelectInput';
 import { toArray } from '../formats';
-import { types, positions } from '../types';
+import { types, typeToText, positions } from '../types';
 
 class Position extends Component {
   static propTypes = {
@@ -59,7 +59,9 @@ class Position extends Component {
               type="checkbox"
               value={value}
             />
-            <CheckboxLabel key={value}>{value}</CheckboxLabel>
+            <CheckboxLabel key={value}>
+              {typeToText[value] || value}
+            </CheckboxLabel>
           </div>
         ))}
       </ItemSelector>
@@ -102,9 +104,9 @@ class Position extends Component {
             </LabelContainer>
             <div className="col-sm">
               <Field component="select" name={`${member}.type`}>
-                <option value="list">list</option>
+                <option value="list">lists of posts</option>
                 <option value="single">single</option>
-                <option value="media">media</option>
+                <option value="media">gallery</option>
                 <option value="customPostType">custom post type</option>
               </Field>
               {this.renderItemSelector()}
@@ -154,7 +156,6 @@ const ItemSelector = styled.div`
   & > div {
     display: flex;
     align-items: center;
-    margin-right: 8px;
   }
 `;
 

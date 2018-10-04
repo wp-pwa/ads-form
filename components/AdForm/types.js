@@ -46,3 +46,9 @@ export const types = {
     positions: positions.single,
   },
 };
+
+export const typeToText = {
+  latest: 'latest posts',
+  category: 'categories',
+  tag: 'tags',
+};
