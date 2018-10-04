@@ -1,3 +1,18 @@
+## [1.1.4](https://github.com/frontity/ads-form/compare/v1.1.3...v1.1.4) (2018-10-04)
+
+
+### Bug Fixes
+
+* **ad-card:** change 'Ad type' to 'Ad server' ([df5ba2a](https://github.com/frontity/ads-form/commit/df5ba2a))
+* **ad-sense:** add optional label to 'format' field ([33d5211](https://github.com/frontity/ads-form/commit/33d5211))
+* **graphcool:** create permission query 'isUserInSite' (WIP) ([998a794](https://github.com/frontity/ads-form/commit/998a794))
+* **graphcool:** create query permissions and configure graphcool.yml ([df047ba](https://github.com/frontity/ads-form/commit/df047ba))
+* **npm:** update dependencies ([22bf902](https://github.com/frontity/ads-form/commit/22bf902))
+* **npm:** update package-lock ([f80c787](https://github.com/frontity/ads-form/commit/f80c787))
+* **position:** change positions of checkboxes ([cb6bd4a](https://github.com/frontity/ads-form/commit/cb6bd4a))
+* **position:** change texts and some styles ([f011b24](https://github.com/frontity/ads-form/commit/f011b24))
+* **positions:** change 'position' to 'placement' ([5b28120](https://github.com/frontity/ads-form/commit/5b28120))
+
 ## [1.1.3](https://github.com/frontity/ads-form/compare/v1.1.2...v1.1.3) (2018-10-03)
 
 
