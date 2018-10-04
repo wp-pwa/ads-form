@@ -149,8 +149,7 @@ const CheckboxLabel = styled.label`
 
 const ItemSelector = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
   box-sizing: border-box;
 
   & > div {
