@@ -1,3 +1,0 @@
-query isUserInSiteQuery($node_id: ID!, $user_id: ID!) {
-  isUserInSite(id: $node_id, userId: $user_id)
-}
