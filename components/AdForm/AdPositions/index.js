@@ -10,7 +10,7 @@ const AdPositions = ({ member, initialValues, form }) => (
   <FieldArray name={`${member}.positions`}>
     {({ fields }) => (
       <>
-        <Title>Positions</Title>
+        <Title>Ad placements</Title>
         {fields &&
           fields.map((name, index) => (
             <Position
@@ -24,7 +24,7 @@ const AdPositions = ({ member, initialValues, form }) => (
         <AlignCenter>
           <input
             type="button"
-            value="Add Position"
+            value="Add placement"
             className="primary small"
             onClick={() => {
               fields.push({
