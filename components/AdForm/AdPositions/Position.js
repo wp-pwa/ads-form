@@ -2,56 +2,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { OnChange } from 'react-final-form-listeners';
 import { Field } from 'react-final-form-html5-validation';
-import { get } from 'lodash';
 import SelectInput from '../../SelectInput';
 import { toArray } from '../formats';
-import { types, typeToText, positions } from '../types';
+import { types, typeToText } from '../types';
+import Condition from '../Condition';
 
 class Position extends Component {
   static propTypes = {
     member: PropTypes.string.isRequired,
-    initialValues: PropTypes.shape({}).isRequired,
     remove: PropTypes.func.isRequired,
-    form: PropTypes.shape({
-      change: PropTypes.func.isRequired,
-    }).isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    const type = get(props.initialValues, `${props.member}.type`) || 'list';
-
-    const customPostTypes =
-      type === 'customPostType'
-        ? get(props.initialValues, `${props.member}.items`)
-        : '';
-
-    this.state = { type, customPostTypes };
-  }
-
-  setType = value => {
-    if (value !== '' && this.state.type !== value)
-      this.setState({ type: value }, () => {
-        const newPosition =
-          positions[value !== 'customPostType' ? value : 'single'][0];
-        const initialValue =
-          value !== 'customPostType' ? types[value].items[0] : '';
-        this.props.form.change(`${this.props.member}.position`, newPosition);
-        this.props.form.change(`${this.props.member}.items`, [initialValue]);
-      });
-  };
-  setCustomPostTypes = value => this.setState({ customPostTypes: value });
-
-  renderItemSelector = () => {
+  renderItemSelector = type => {
     const { member } = this.props;
-    const { type, customPostTypes } = this.state;
-    const { items } = types[type];
-    return items ? (
+    return (
       <ItemSelector>
-        {items.map(value => (
+        {types[type].items.map(value => (
           <div key={value}>
             <Field
               name={`${member}.items`}
@@ -65,21 +32,24 @@ class Position extends Component {
           </div>
         ))}
       </ItemSelector>
-    ) : (
+    );
+  };
+
+  renderCustomItemSelector = () => {
+    const { member } = this.props;
+    return (
       <Field
         component="input"
         type="text"
         name={`${member}.items`}
-        value={customPostTypes}
         parse={toArray}
         placeholder="new,product,..."
       />
     );
   };
 
-  renderPositionSelector = () => {
+  renderPositionSelector = type => {
     const { member } = this.props;
-    const { type } = this.state;
     return (
       <PositionSelector>
         <SelectInput name={`${member}.position`} label="position">
@@ -109,11 +79,25 @@ class Position extends Component {
                 <option value="media">gallery</option>
                 <option value="customPostType">custom post type</option>
               </Field>
-              {this.renderItemSelector()}
-              <OnChange name={`${member}.type`}>{this.setType}</OnChange>
+              <Condition
+                when={`${member}.type`}
+                satisfies={value => ['list', 'single', 'media'].includes(value)}
+              >
+                {this.renderItemSelector}
+              </Condition>
+              <Condition when={`${member}.type`} is="customPostType">
+                {this.renderCustomItemSelector()}
+              </Condition>
             </div>
           </div>
-          {this.renderPositionSelector()}
+          <Condition
+            when={`${member}.type`}
+            satisfies={value =>
+              ['list', 'single', 'media', 'customPostType'].includes(value)
+            }
+          >
+            {this.renderPositionSelector}
+          </Condition>
           <BtnContainer>
             <button type="button" className="secondary small" onClick={remove}>
               delete
