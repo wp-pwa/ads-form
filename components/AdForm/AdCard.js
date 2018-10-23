@@ -2,12 +2,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { OnChange } from 'react-final-form-listeners';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
-import { get } from 'lodash';
 import { Field } from 'react-final-form-html5-validation';
 import AdOptions from './AdOptions';
 import AdPositions from './AdPositions';
+import Condition from './Condition';
 import SelectInput from '../SelectInput';
 import DragIcon from '../icons/DragIcon';
 import SettingsIcon from '../icons/SettingsIcon';
@@ -24,26 +23,17 @@ class AdCard extends Component {
   static propTypes = {
     member: PropTypes.string.isRequired,
     remove: PropTypes.func.isRequired,
-    initialValues: PropTypes.shape({}).isRequired,
-    form: PropTypes.shape({}).isRequired,
   };
 
-  state = {
-    isOpen: false,
-    type:
-      get(this.props.initialValues, `${this.props.member}.type`) ||
-      SMART_ADSERVER,
-  };
+  state = { isOpen: false };
 
   toggleContent = () => {
     this.setState({ isOpen: !this.state.isOpen });
   };
 
-  updateType = value => value && this.setState({ type: value });
-
   render() {
-    const { member, remove, initialValues, form } = this.props;
-    const { isOpen, type } = this.state;
+    const { member, remove } = this.props;
+    const { isOpen } = this.state;
     const iconSize = 24;
     return (
       <div className="card fluid">
@@ -79,20 +69,23 @@ class AdCard extends Component {
             <option value={DOUBLE_CLICK}>DoubleClick</option>
             <option value={SUN_MEDIA}>SunMedia</option>
           </SelectInput>
-          <OnChange name={`${member}.type`}>{this.updateType}</OnChange>
-          <AdOptions member={member} type={type} />
+          <Condition
+            when={`${member}.type`}
+            satisfies={value =>
+              [SMART_ADSERVER, AD_SENSE, DOUBLE_CLICK, SUN_MEDIA].includes(
+                value,
+              )
+            }
+          >
+            {value => <AdOptions member={member} type={value} />}
+          </Condition>
           <BtnContainer>
             <button type="button" className="secondary small" onClick={remove}>
               delete
             </button>
           </BtnContainer>
           <hr />
-          <AdPositions
-            member={member}
-            initialValues={initialValues}
-            type={type}
-            form={form}
-          />
+          <AdPositions member={member} />
         </Content>
       </div>
     );

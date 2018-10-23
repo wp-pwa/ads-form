@@ -70,11 +70,7 @@ class AdForm extends Component {
                   <FieldArray name="ads.fills">
                     {({ fields }) => (
                       <div>
-                        <AdCards
-                          fields={fields}
-                          initialValues={initialValues}
-                          form={form}
-                        />
+                        <AdCards fields={fields} form={form} />
                         <AlignCenter>
                           <input
                             type="button"
