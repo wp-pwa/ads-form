@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/frontity/ads-form/compare/v1.1.4...v1.1.5) (2018-10-23)
+
+
+### Bug Fixes
+
+* **package-lock:** fix dependencies ([bebf327](https://github.com/frontity/ads-form/commit/bebf327))
+
 ## [1.1.4](https://github.com/frontity/ads-form/compare/v1.1.3...v1.1.4) (2018-10-04)
 
 
