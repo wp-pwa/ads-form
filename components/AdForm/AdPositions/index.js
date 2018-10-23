@@ -6,7 +6,7 @@ import { FieldArray } from 'react-final-form-arrays';
 import Position from './Position';
 import { types, positions } from '../types';
 
-const AdPositions = ({ member, initialValues, form }) => (
+const AdPositions = ({ member }) => (
   <FieldArray name={`${member}.positions`}>
     {({ fields }) => (
       <>
@@ -16,9 +16,7 @@ const AdPositions = ({ member, initialValues, form }) => (
             <Position
               key={name}
               member={name}
-              initialValues={initialValues}
               remove={() => fields.remove(index)}
-              form={form}
             />
           ))}
         <AlignCenter>
@@ -41,8 +39,6 @@ const AdPositions = ({ member, initialValues, form }) => (
 
 AdPositions.propTypes = {
   member: PropTypes.string.isRequired,
-  initialValues: PropTypes.shape({}).isRequired,
-  form: PropTypes.shape({}).isRequired,
 };
 
 export default AdPositions;
