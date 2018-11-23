@@ -13,7 +13,7 @@ import { SMART_ADSERVER } from '../../constants';
 
 const UPDATE_SETTING = gql`
   mutation UpdateSetting($id: ID!, $values: Json!) {
-    updateSetting(id: $id, value: $values) {
+    updateSetting(id: $id, data: $values) {
       id
     }
   }
