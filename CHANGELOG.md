@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/frontity/ads-form/compare/v1.1.6...v1.1.7) (2018-11-23)
+
+
+### Bug Fixes
+
+* **graphql:** rename value to data in settings ([c428211](https://github.com/frontity/ads-form/commit/c428211))
+
 ## [1.1.6](https://github.com/frontity/ads-form/compare/v1.1.5...v1.1.6) (2018-11-23)
 
 
