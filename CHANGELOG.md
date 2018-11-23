@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/frontity/ads-form/compare/v1.1.5...v1.1.6) (2018-11-23)
+
+
+### Bug Fixes
+
+* **apollo:** set new graphcool endpoint url ([59c61b6](https://github.com/frontity/ads-form/commit/59c61b6))
+
 ## [1.1.5](https://github.com/frontity/ads-form/compare/v1.1.4...v1.1.5) (2018-10-23)
 
 
