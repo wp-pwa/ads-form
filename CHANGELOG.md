@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/frontity/ads-form/compare/v1.1.7...v1.2.0) (2019-01-08)
+
+
+### Bug Fixes
+
+* **positions:** rename positions for carousel slots ([2ed2885](https://github.com/frontity/ads-form/commit/2ed2885))
+
+
+### Features
+
+* **positions:** add new positions ([defd30c](https://github.com/frontity/ads-form/commit/defd30c))
+
 ## [1.1.7](https://github.com/frontity/ads-form/compare/v1.1.6...v1.1.7) (2018-11-23)
 
 
