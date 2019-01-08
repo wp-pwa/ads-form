@@ -5,6 +5,7 @@ const MIN_LIMIT_VALUE = 300; // This must be equal to this: https://github.com/f
 export const positions = {
   list: [
     // 'before item 1',
+    'before navbar',
     'before post 1',
     ...range(1, 31).map(n => `after post ${n}`),
     // ...range(1, 21).map(n => `after item ${n}`)
@@ -13,15 +14,21 @@ export const positions = {
   ],
   single: [
     // 'before item 1',
+    'before navbar',
     'before content',
     ...range(1, 17).map(
       n => `after ${MIN_LIMIT_VALUE * n} characters in content`,
     ),
     'after content',
     // ...range(1, 21).map(n => `after item ${n}`)
+    'after comments',
+    'after next posts',
+    'after more in category 1',
+    'after more in category 2',
   ],
   media: [
     // 'before item 1',
+    'before navbar',
     'before image',
     'after image',
     // 'after item 1',
