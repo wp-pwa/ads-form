@@ -23,7 +23,8 @@ export const positions = {
     // ...range(1, 21).map(n => `after item ${n}`)
     'after comments',
     'after next posts',
-    'after more in 1',
+    'after more in category 1',
+    'after more in category 2',
   ],
   media: [
     // 'before item 1',
